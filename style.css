@@ -2,3 +2,15 @@ body {
     background-image: url("images/backgrounds/standard_background.jpg");
     background-size: cover;
 }
+#fdp > img {
+    height: 200px;
+}
+#carduppile > img {
+    height: 200px;
+    border: 2px solid black;
+    /* visibility: hidden; */
+    text-align: center;
+    vertical-align: middle;
+}
+#caruppile {
+}
