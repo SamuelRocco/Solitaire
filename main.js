@@ -109,7 +109,7 @@ class CornerPile {
         // if(count >= (2-leftoverPile.length)) {
 
         // }
-        if (count > (leftoverPile.length-1)) {
+        if (count > (leftoverPile.length - 1)) {
           flag = false;
           backimg.src = blankcard;
           $("fdp").textContent = "";
@@ -131,13 +131,14 @@ class CornerPile {
     }
     function cardClicked() {
       var card = this.innerHTML;
-      var cardsource = card.substring(card.indexOf("=")+2).replace(/\.[^/.]+$/, "");
-      console.log(cardsource);
+      var cardsource = card.substring(card.indexOf("=") + 2).replace(/\.[^/.]+$/, "");
 
 
       leftoverPile.forEach(element => {
-        if (element.faceupImage.replace(/\.[^/.]+$/, "") == cardsource) {
-          // you are here
+        var faceimage = element.faceupImage.replace(/\.[^/.]+$/, "");
+        if (faceimage == cardsource) {   //matches the selected button card to the card in the leftoverpile list
+          var itemIndex = leftoverPile.indexOf(element);
+          leftoverPile.splice(itemIndex,1);
         }
       });
     }
