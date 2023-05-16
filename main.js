@@ -5,6 +5,7 @@ var spadesPile = [];
 var heartsPile = [];
 var diamondsPile = [];
 var clubsPile = [];
+var pile;
 
 function pageload() {
   cardfiles.push(
@@ -70,16 +71,18 @@ function pageload() {
   // console.log(DECK);
   var shuffledDeck = shuffleDeck(DECK);
   DECK = shuffledDeck;
-  const pile = new Pile(DECK);
+  pile = new CornerPile(DECK);
   pile.createPile(DECK);
   console.log(DECK);
 }
 
-class Pile {
+class CornerPile {
   constructor(deck) {
     this.deck = deck;
   }
   createPile(leftoverPile) {
+    var count = 0;
+    const blankcard = "images/card_background/cardBlank.png";
     const facedownpile = document.createElement("button");
     const backcardsource = "images/card_background/cardBackground.png";
     var backimg = document.createElement("img");
@@ -87,59 +90,58 @@ class Pile {
     facedownpile.id = "fdp";
     $("facedownpile").append(facedownpile);
     $("fdp").append(backimg);
+    var flag = true;
     $("fdp").onclick = flipcard;
 
     function flipcard() {
-      const faceuppile = document.createElement("button");
-      const upcardsource = "images/cards/" + leftoverPile[0].filename;
-      var upimg = document.createElement("img");
-      upimg.src = upcardsource;
-      faceuppile.id = "fup";
-      $("faceuppile").append(faceuppile);
-      $("fup").append(upimg);
-      $("fup").onclick = loopthroughcards;
+      console.log(count + " : " + leftoverPile.length);
+      if (flag && count <= leftoverPile.length - 1) {
+        const faceuppile = document.createElement("button");
+        const upcardsource = "images/cards/" + leftoverPile[count].filename;
+        var upimg = document.createElement("img");
+        upimg.src = upcardsource;
+        faceuppile.id = "fup";
+        $("carduppile").textContent = "";
+        $("carduppile").append(faceuppile);
+        $("fup").append(upimg);
+        $("fup").onclick = cardClicked;
+        ++count;
+        // if(count >= (2-leftoverPile.length)) {
+
+        // }
+        if (count > (leftoverPile.length-1)) {
+          flag = false;
+          backimg.src = blankcard;
+          $("fdp").textContent = "";
+          $("fdp").append(backimg);
+          $("fdp").onclick = returnthepile;
+        }
+      }
+
+      function returnthepile() {
+        backimg.src = backcardsource;
+        $("fdp").append(backimg);
+        $("carduppile").textContent = "";
+        $("facedownpile").textContent = "";
+        console.log("reset");
+        pile.createPile(leftoverPile);
+
+        // createPile();
+      }
+    }
+    function cardClicked() {
+      var card = this.innerHTML;
+      var cardsource = card.substring(card.indexOf("=")+2).replace(/\.[^/.]+$/, "");
+      console.log(cardsource);
+
+
+      leftoverPile.forEach(element => {
+        if (element.faceupImage.replace(/\.[^/.]+$/, "") == cardsource) {
+          // you are here
+        }
+      });
     }
 
-    // var count = 0;
-    // var i = 0;
-    // const pile = document.createElement("button");
-    // var source = "images/cards/" + leftoverPile[0].filename;
-    // var imgtext = document.createElement("img");
-    // imgtext.src = source;
-    // pile.id = "pilebutton";
-    
-    // const returnpile = document.createElement("button");
-    // var backsource = "images/card_background/cardBackground.png";
-    // var returnimgtext = document.createElement("img");
-    // returnimgtext.src = backsource;
-    // returnpile.id = "returnpilebutton";
-    // $("returnpile").append(returnpile);
-    // $("returnpilebutton").append(returnimgtext);
-    // $("returnpilebutton").onclick = nextCard;
-
-    // function nextCard() {
-    //   count++;
-    //   if (i < leftoverPile.length - 1) {
-    //     $("pile").append(pile);
-    //     $("pilebutton").append(imgtext);
-    //     $("pilebutton").onclick = returnthepile;
-
-    //     console.log(leftoverPile[i]);
-    //     source = "images/cards/" + leftoverPile[++i].filename;
-    //     imgtext.src = source;
-    //     $("pilebutton").append(imgtext);
-    //   } else {
-    //     console.log("flip");
-
-    //     returnthepile();
-    //   }
-    // }
-    // function returnthepile() {
-    //   $("returnpile").textContent = "";
-    //   i = 0;
-    //   console.log(count);
-    //   count = 0;
-    // }
   }
 }
 
@@ -153,7 +155,9 @@ class Card {
     this.numvalue = this.findnumvalue(card);
     this.facingup = true;
     this.facingdown = false;
-    // console.log(numvalue + ' : ' + facevalue);
+    this.facedownImage = "images/card_background/cardBackground.png";
+    this.faceupImage = "images/cards/" + card;
+    // console.log(card);
   }
   orientation() {
     if (this.facingup) {
