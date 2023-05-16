@@ -1,11 +1,6 @@
 window.onload = pageload;
 const cardfiles = [];
 var DECK = [];
-var spadesPile = [];
-var heartsPile = [];
-var diamondsPile = [];
-var clubsPile = [];
-var pile;
 
 function pageload() {
   cardfiles.push(
@@ -68,83 +63,9 @@ function pageload() {
     DECK.push(card);
   });
 
-  // console.log(DECK);
-  var shuffledDeck = shuffleDeck(DECK);
-  DECK = shuffledDeck;
-  pile = new CornerPile(DECK);
-  pile.createPile(DECK);
-  console.log(DECK);
 }
 
-class CornerPile {
-  constructor(deck) {
-    this.deck = deck;
-  }
-  createPile(leftoverPile) {
-    var count = 0;
-    const blankcard = "images/card_background/cardBlank.png";
-    const facedownpile = document.createElement("button");
-    const backcardsource = "images/card_background/cardBackground.png";
-    var backimg = document.createElement("img");
-    backimg.src = backcardsource;
-    facedownpile.id = "fdp";
-    $("facedownpile").append(facedownpile);
-    $("fdp").append(backimg);
-    var flag = true;
-    $("fdp").onclick = flipcard;
 
-    function flipcard() {
-      console.log(count + " : " + leftoverPile.length);
-      if (flag && count <= leftoverPile.length - 1) {
-        const faceuppile = document.createElement("button");
-        const upcardsource = "images/cards/" + leftoverPile[count].filename;
-        var upimg = document.createElement("img");
-        upimg.src = upcardsource;
-        faceuppile.id = "fup";
-        $("carduppile").textContent = "";
-        $("carduppile").append(faceuppile);
-        $("fup").append(upimg);
-        $("fup").onclick = cardClicked;
-        ++count;
-        // if(count >= (2-leftoverPile.length)) {
-
-        // }
-        if (count > (leftoverPile.length - 1)) {
-          flag = false;
-          backimg.src = blankcard;
-          $("fdp").textContent = "";
-          $("fdp").append(backimg);
-          $("fdp").onclick = returnthepile;
-        }
-      }
-
-      function returnthepile() {
-        backimg.src = backcardsource;
-        $("fdp").append(backimg);
-        $("carduppile").textContent = "";
-        $("facedownpile").textContent = "";
-        console.log("reset");
-        pile.createPile(leftoverPile);
-
-        // createPile();
-      }
-    }
-    function cardClicked() {
-      var card = this.innerHTML;
-      var cardsource = card.substring(card.indexOf("=") + 2).replace(/\.[^/.]+$/, "");
-
-
-      leftoverPile.forEach(element => {
-        var faceimage = element.faceupImage.replace(/\.[^/.]+$/, "");
-        if (faceimage == cardsource) {   //matches the selected button card to the card in the leftoverpile list
-          var itemIndex = leftoverPile.indexOf(element);
-          leftoverPile.splice(itemIndex,1);
-        }
-      });
-    }
-
-  }
-}
 
 class Card {
   constructor(card) {
