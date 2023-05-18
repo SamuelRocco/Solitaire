@@ -1,6 +1,20 @@
 window.onload = pageload;
 const cardfiles = [];
 var DECK = [];
+var shuffledDeck;
+var facedownpile = [];
+var faceuppile = [];
+var spades = [];
+var hearts = [];
+var diamonds = [];
+var clubs = [];
+var column1 = [];
+var column2 = [];
+var column3 = [];
+var column4 = [];
+var column5 = [];
+var column6 = [];
+var column7 = [];
 
 function pageload() {
   cardfiles.push(
@@ -63,6 +77,101 @@ function pageload() {
     DECK.push(card);
   });
 
+  shuffledDeck = shuffle(DECK);
+
+  dealCards();
+  console.log(column1);
+  console.log(column2);
+  console.log(column3);
+  console.log(column4);
+  console.log(column5);
+  console.log(column6);
+  console.log(column7);
+  console.log(facedownpile);
+}
+
+
+function dealCards() {
+
+  var item;
+  for (var i = 0; i < 7; i++) {
+    if (i == 0) {
+      item = shuffledDeck.shift();
+      item.faceup();
+      column1.push(item);
+    }
+
+    if (i < 1) {
+      item = shuffledDeck.shift();
+      item.facedown();
+      column2.push(item);
+    } else if (i == 1) {
+      item = shuffledDeck.shift();
+      item.faceup();
+      column2.push(item);
+    }
+
+    if (i < 2) {
+      item = shuffledDeck.shift();
+      item.facedown();
+      column3.push(item);
+    } else if (i == 2) {
+      item = shuffledDeck.shift();
+      item.faceup();
+      column3.push(item);
+    }
+
+    if (i < 3) {
+      item = shuffledDeck.shift();
+      item.facedown();
+      column4.push(item);
+    } else if (i == 3) {
+      item = shuffledDeck.shift();
+      item.faceup();
+      column4.push(item);
+    }
+
+    if (i < 4) {
+      item = shuffledDeck.shift();
+      item.facedown();
+      column5.push(item);
+    } else if (i == 4) {
+      item = shuffledDeck.shift();
+      item.faceup();
+      column5.push(item);
+    }
+
+    if (i < 5) {
+      item = shuffledDeck.shift();
+      item.facedown();
+      column6.push(item);
+    } else if (i == 5) {
+      item = shuffledDeck.shift();
+      item.faceup();
+      column6.push(item);
+    }
+
+    if (i < 6) {
+      item = shuffledDeck.shift();
+      item.facedown();
+      column7.push(item);
+    } else if (i == 6) {
+      item = shuffledDeck.shift();
+      item.faceup();
+      column7.push(item);
+    }
+  }
+
+
+
+  facedownpile = shuffledDeck;    //transfer all cards to the facedown pile
+
+  facedownpile.forEach(element => {   //make every card face down in the facedown pile
+    element.facedown();
+  });
+
+  shuffledDeck = [];    //make shuffledDeck pile equal Null, not needed anymore, all cards are dealt
+
 }
 
 
@@ -77,8 +186,7 @@ class Card {
     this.numvalue = this.findnumvalue(card);
     this.facingup = true;
     this.facingdown = false;
-    this.facedownImage = "images/card_background/cardBackground.png";
-    this.faceupImage = "images/cards/" + card;
+    this.image;
     // console.log(card);
   }
   orientation() {
@@ -91,10 +199,12 @@ class Card {
   faceup() {
     this.facingup = true;
     this.facingdown = false;
+    this.image = "images/cards/" + this.filename;
   }
   facedown() {
     this.facingup = false;
     this.facingdown = true;
+    this.image = "images/card_background/cardBackground.png";
   }
   findnumvalue(card) {
     var num = card.substring(0, card.indexOf("_"));
@@ -123,7 +233,7 @@ class Card {
   }
 }
 
-function shuffleDeck(deck) {
+function shuffle(deck) {
   for (var i = deck.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
     var temp = deck[i];
