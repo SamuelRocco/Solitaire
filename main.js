@@ -202,7 +202,7 @@ function createStockAndWaste() {
       stockpilebutton.onclick = wastetostock;
     }
   }
-  
+
   //waste pile
   function refreshwastepile() {
     if (wastepile.length > 0) {
@@ -215,7 +215,7 @@ function createStockAndWaste() {
       wastepilebutton.appendChild(cardimage2);
       waste[0].appendChild(wastepilebutton);
 
-      wastepilebutton.addEventListener('click', function(){
+      wastepilebutton.addEventListener('click', function () {
         var cardmoved = checkifcardgoesondifferentpile("wastepile");
         if (cardmoved) {
           var waste = document.getElementsByClassName("waste");
@@ -255,29 +255,28 @@ function dealCardColumnPiles() {
   //for column 1
   var c1 = document.getElementsByClassName("column1");
   for (var a = 0; a < column1.length; a++) {
-    console.log("fuck");
     var col1butt = document.createElement("button");
     var image = column1[a].image;
     var cardimage = document.createElement("img");
-    console.log(cardimage);
     cardimage.src = image;
     col1butt.appendChild(cardimage);
     col1butt.className += "c1 r" + (a + 1).toString();
     c1[0].appendChild(col1butt);
 
-//column1button***********************************************************************************************************************/
-
-    col1butt.addEventListener('click', function(){
-      var cardmoved = checkifcardgoesondifferentpile("column1");
-      if (cardmoved) {
-        c1[0].textContent = "";
-        console.log(column1);
-      }
-    }, false);
+    //column1button***********************************************************************************************************************/
+    if (column1[a].orientation() == "facingup") {
+      col1butt.addEventListener('click', function () {
+        var cardmoved = checkifcardgoesondifferentpile("column1");
+        if (cardmoved) {
+          c1[0].textContent = "";
+          dealCardColumnPiles();
+          console.log(column1);
+        }
+      }, false);
+    }
   }
 
-
-//***********************************************************************************************************************/
+  //***********************************************************************************************************************/
 
   //for column 2
   var c2 = document.getElementsByClassName("column2");
@@ -289,7 +288,24 @@ function dealCardColumnPiles() {
     col2butt.appendChild(cardimage2);
     col2butt.className += "c2 r" + (b + 1).toString();
     c2[0].appendChild(col2butt);
+
+
+    //column2button***********************************************************************************************************************/
+
+    if (column2[b].orientation() == "facingup") {
+      col2butt.addEventListener('click', function () {
+        var cardmoved = checkifcardgoesondifferentpile("column2");
+        if (cardmoved) {
+          c2[0].textContent = "";
+          dealCardColumnPiles();
+          console.log(column2);
+        }
+      }, false);
+    }
   }
+
+
+  //***********************************************************************************************************************/
 
   //for column 3
   var c3 = document.getElementsByClassName("column3");
@@ -301,7 +317,23 @@ function dealCardColumnPiles() {
     col3butt.appendChild(cardimage3);
     col3butt.className += "c3 r" + (c + 1).toString();
     c3[0].appendChild(col3butt);
+
+
+    //column3button***********************************************************************************************************************/
+    if (column3[c].orientation() == "facingup") {
+      col3butt.addEventListener('click', function () {
+        var cardmoved = checkifcardgoesondifferentpile("column3");
+        if (cardmoved) {
+          c3[0].textContent = "";
+          dealCardColumnPiles();
+          console.log(column3);
+        }
+      }, false);
+    }
   }
+
+
+  //***********************************************************************************************************************/
 
   //for column 3
   var c4 = document.getElementsByClassName("column4");
@@ -313,7 +345,23 @@ function dealCardColumnPiles() {
     col4butt.appendChild(cardimage4);
     col4butt.className += "c4 r" + (d + 1).toString();
     c4[0].appendChild(col4butt);
+
+
+    //column4button***********************************************************************************************************************/
+    if (column4[d].orientation() == "facingup") {
+      col4butt.addEventListener('click', function () {
+        var cardmoved = checkifcardgoesondifferentpile("column4");
+        if (cardmoved) {
+          c4[0].textContent = "";
+          dealCardColumnPiles();
+          console.log(column4);
+        }
+      }, false);
+    }
   }
+
+
+  //***********************************************************************************************************************/
 
   //for column 3
   var c5 = document.getElementsByClassName("column5");
@@ -325,7 +373,23 @@ function dealCardColumnPiles() {
     col5butt.appendChild(cardimage5);
     col5butt.className += "c5 r" + (e + 1).toString();
     c5[0].appendChild(col5butt);
+
+
+    //column5button***********************************************************************************************************************/
+    if (column5[e].orientation() == "facingup") {
+      col5butt.addEventListener('click', function () {
+        var cardmoved = checkifcardgoesondifferentpile("column5");
+        if (cardmoved) {
+          c5[0].textContent = "";
+          dealCardColumnPiles();
+          console.log(column5);
+        }
+      }, false);
+    }
   }
+
+
+  //***********************************************************************************************************************/
 
   //for column 3
   var c6 = document.getElementsByClassName("column6");
@@ -337,7 +401,23 @@ function dealCardColumnPiles() {
     col6butt.appendChild(cardimage6);
     col6butt.className += "c6 r" + (f + 1).toString();
     c6[0].appendChild(col6butt);
+
+
+    //column6button***********************************************************************************************************************/
+    if (column6[f].orientation() == "facingup") {
+      col6butt.addEventListener('click', function () {
+        var cardmoved = checkifcardgoesondifferentpile("column6");
+        if (cardmoved) {
+          c6[0].textContent = "";
+          dealCardColumnPiles();
+          console.log(column6);
+        }
+      }, false);
+    }
   }
+
+
+  //***********************************************************************************************************************/
 
   //for column 3
   var c7 = document.getElementsByClassName("column7");
@@ -349,7 +429,24 @@ function dealCardColumnPiles() {
     col7butt.appendChild(cardimage7);
     col7butt.className += "c7 r" + (g + 1).toString();
     c7[0].appendChild(col7butt);
+
+
+    //column7button***********************************************************************************************************************/
+    if (column7[g].orientation() == "facingup") {
+      col7butt.addEventListener('click', function () {
+        var cardmoved = checkifcardgoesondifferentpile("column7");
+        if (cardmoved) {
+          c7[0].textContent = "";
+          console.log("7 clicked");
+          dealCardColumnPiles();
+          console.log(column7);
+        }
+      }, false);
+    }
   }
+
+
+  //***********************************************************************************************************************/
 
 }
 
@@ -361,25 +458,89 @@ function dealCardColumnPiles() {
 function checkifcardgoesondifferentpile(arrayname) {
 
   if (arrayname == "wastepile") {   //if coming from wastepile
+
     console.log(arrayname);
-    wastepile.splice(-1, 1);     //its returning the 0th index for some reason
+    wastepile.splice(-1, 1);
     return true;
+
   } else if (arrayname == "column1") {    //if coming from column1
     console.log(arrayname);
-    column1.splice(-1,1);
+    column1.splice(-1, 1);
+    if (column1.length >= 1) {
+      column1[column1.length - 1].faceup();
+    }
     return true;
   } else if (arrayname == "column2") {    //if coming from column2
     console.log(arrayname);
+    column2.splice(-1, 1);
+    if (column2.length >= 1) {
+      column2[column2.length - 1].faceup();
+    }
+    // console.log(column2[0]);
+    return true;
   } else if (arrayname == "column3") {    //if coming from column3
     console.log(arrayname);
+    column3.splice(-1, 1);
+    if (column3.length >= 1) {
+      column3[column3.length - 1].faceup();
+    }
+    return true;
   } else if (arrayname == "column4") {    //if coming from column4
     console.log(arrayname);
+    column4.splice(-1, 1);
+    if (column4.length >= 1) {
+      column4[column4.length - 1].faceup();
+    }
+    return true;
   } else if (arrayname == "column5") {    //if coming from column5
     console.log(arrayname);
+    column5.splice(-1, 1);
+    if (column5.length >= 1) {
+      column5[column5.length - 1].faceup();
+    }
+    return true;
   } else if (arrayname == "column6") {    //if coming from column6
     console.log(arrayname);
+    column6.splice(-1, 1);
+    if (column6.length >= 1) {
+      column6[column6.length - 1].faceup();
+    }
+    return true;
   } else if (arrayname == "column7") {    //if coming from column7
     console.log(arrayname);
+    column7.splice(-1, 1);
+    if (column7.length >= 1) {
+      column7[column7.length - 1].faceup();
+    }
+    return true;
+    // } else if (arrayname == "clubs") {    //if coming from column7
+    //   console.log(arrayname);
+    //   clubs.splice(-1, 1);
+    //   if (clubs.length >= 1) {
+    //     clubs[clubs.length - 1].faceup();
+    //   }
+    //   return true;
+    // } else if (arrayname == "hearts") {    //if coming from column7
+    //   console.log(arrayname);
+    //   hearts.splice(-1, 1);
+    //   if (hearts.length >= 1) {
+    //     hearts[hearts.length - 1].faceup();
+    //   }
+    //   return true;
+    // } else if (arrayname == "spades") {    //if coming from column7
+    //   console.log(arrayname);
+    //   spades.splice(-1, 1);
+    //   if (spades.length >= 1) {
+    //     spades[spades.length - 1].faceup();
+    //   }
+    //   return true;
+    // } else if (arrayname == "diamonds") {    //if coming from column7
+    //   console.log(arrayname);
+    //   diamonds.splice(-1, 1);
+    //   if (diamonds.length >= 1) {
+    //     diamonds[diamonds.length - 1].faceup();
+    //   }
+    //   return true;
   } else {
     return false;
   }

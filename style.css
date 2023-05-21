@@ -1,6 +1,13 @@
 body {
+    width: 100%;
     background-image: url("images/backgrounds/standard_background.jpg");
     background-size: cover;
+    max-width: 100%;
+    min-width: 75%;
+}
+button {
+    background-color: transparent;
+    border-color: transparent;
 }
 button > img{
     /* height: 200px; */
@@ -12,6 +19,7 @@ button > img{
 .stockwaste {
     float: left;
     margin: auto;
+    margin-top: 1%;
     margin-right: 2%;
 }
 .playarea {
@@ -20,11 +28,54 @@ button > img{
     display:flex;
     justify-content: space-between;
 }
-.playarea > div {
+.playarea > div{
     flex-basis: 20%;
     padding: 10px;
 }
-
+.foundation{
+    float: left;
+    margin: auto;
+    margin-top: 1%;
+    margin-left: 2%;
+}
+.empty1, .empty2, .empty3, .empty4 {
+    background-color: rgba(256, 256, 256, .15);
+}
+.empty1 {
+    position: absolute;
+    max-width: 150px;
+    min-width: 10px;
+    width: 100%;
+    height:auto;
+    z-index: 1;
+}
+.empty2 {
+    position: absolute;
+    max-width: 150px;
+    min-width: 10px;
+    width: 100%;
+    height:auto;
+    z-index: 1;
+    top: 20%;
+}
+.empty3 {
+    position: absolute;
+    max-width: 150px;
+    min-width: 10px;
+    width: 100%;
+    height:auto;
+    z-index: 1;
+    top: 38%;
+}
+.empty4 {
+    position: absolute;
+    max-width: 150px;
+    min-width: 10px;
+    width: 100%;
+    height:auto;
+    z-index: 1;
+    top: 56%;
+}
 .r1 {
     position: absolute;
     z-index: 1;
