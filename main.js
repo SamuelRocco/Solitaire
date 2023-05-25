@@ -698,15 +698,25 @@ function checkifcardgoesondifferentpile(arrayname) {
 }
 
 function checkClubs(cardbeingchecked) {
-
+  wastepile.splice(-1,1);
+  return true
 }
 function checkHearts(cardbeingchecked) {
+  wastepile.splice(-1,1);
+
+  return true
 
 }
 function checkSpades(cardbeingchecked) {
+  wastepile.splice(-1,1);
+
+  return true
 
 }
 function checkDiamonds(cardbeingchecked) {
+  wastepile.splice(-1,1);
+
+  return true
 
 }
 // function check1(cardbeingchecked) {
