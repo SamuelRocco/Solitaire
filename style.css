@@ -2,8 +2,8 @@ body {
     width: 100%;
     background-image: url("images/backgrounds/standard_background.jpg");
     background-size: cover;
-    max-width: 100%;
-    min-width: 75%;
+    max-width:100%;
+    min-width: 100%;
 }
 button {
     background-color: transparent;
@@ -39,43 +39,60 @@ button > img{
     margin-left: 2%;
 }
 .empty1, .empty2, .empty3, .empty4 {
+    max-width: 150px;
+    min-width: 10px;
+    width: 100%;
+    position: absolute;
+    margin: .5%;
+    max-width: 150px;
+    min-width: 10px;
+    width: 100%;
+    z-index: 0;
     background-color: rgba(256, 256, 256, .15);
 }
-.empty1 {
-    position: absolute;
-    max-width: 150px;
-    min-width: 10px;
-    width: 100%;
-    height:auto;
-    z-index: 1;
-}
 .empty2 {
-    position: absolute;
-    max-width: 150px;
-    min-width: 10px;
-    width: 100%;
-    height:auto;
-    z-index: 1;
-    top: 20%;
+    top: 255px;
 }
 .empty3 {
-    position: absolute;
-    max-width: 150px;
-    min-width: 10px;
-    width: 100%;
-    height:auto;
-    z-index: 1;
-    top: 38%;
+    top: 482px;
 }
 .empty4 {
+    top: 710px;
+}
+.clubscard {
     position: absolute;
-    max-width: 150px;
+    max-width: 190px;
     min-width: 10px;
     width: 100%;
-    height:auto;
     z-index: 1;
-    top: 56%;
+    top: 43px;
 }
+.heartscard {
+    position: absolute;
+    max-width: 190px;
+    min-width: 10px;
+    width: 100%;
+    z-index: 1;
+    top: 270px;
+}
+.spadescard {
+    position: absolute;
+    max-width: 190px;
+    min-width: 10px;
+    width: 100%;
+    z-index: 1;
+    top: 498px;
+}
+.diamondscard {
+    position: absolute;
+    max-width: 190px;
+    min-width: 10px;
+    width: 100%;
+    z-index: 1;
+    top: 727px;
+}
+
+
 .r1 {
     position: absolute;
     z-index: 1;

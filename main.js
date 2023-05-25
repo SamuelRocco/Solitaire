@@ -91,9 +91,7 @@ function pageload() {
   console.log(stockpile);
 }
 
-
 function dealCards() {
-
   var item;
   for (var i = 0; i < 7; i++) {
     if (i == 0) {
@@ -163,19 +161,18 @@ function dealCards() {
     }
   }
 
+  stockpile = shuffledDeck; //transfer all cards to the facedown pile
 
-
-  stockpile = shuffledDeck;    //transfer all cards to the facedown pile
-
-  stockpile.forEach(element => {   //make every card face down in the facedown pile
+  stockpile.forEach((element) => {
+    //make every card face down in the facedown pile
     element.facedown();
   });
 
-  shuffledDeck = [];    //make shuffledDeck pile equal Null, not needed anymore, all cards are dealt
-
+  shuffledDeck = []; //make shuffledDeck pile equal Null, not needed anymore, all cards are dealt
 
   dealCardColumnPiles();
 
+  createFoundation();
 }
 
 function createStockAndWaste() {
@@ -208,22 +205,25 @@ function createStockAndWaste() {
     if (wastepile.length > 0) {
       var waste = document.getElementsByClassName("waste");
       var wastepilebutton = document.createElement("button");
-      wastepilebutton.className += "stockcard";
+      wastepilebutton.className += "wastecard"; //changed from stockcard
       var image2 = wastepile[wastepile.length - 1].image; //last image on top
       var cardimage2 = document.createElement("img");
       cardimage2.src = image2;
       wastepilebutton.appendChild(cardimage2);
       waste[0].appendChild(wastepilebutton);
 
-      wastepilebutton.addEventListener('click', function () {
-        var cardmoved = checkifcardgoesondifferentpile("wastepile");
-        if (cardmoved) {
-          var waste = document.getElementsByClassName("waste");
-          console.log(wastepile);
-          waste[0].textContent = "";
-          refreshwastepile();
-        }
-      }, false);
+      wastepilebutton.addEventListener(
+        "click",
+        function () {
+          var cardmoved = checkifcardgoesondifferentpile("wastepile");
+          if (cardmoved) {
+            var waste = document.getElementsByClassName("waste");
+            waste[0].textContent = "";
+            refreshwastepile();
+          }
+        },
+        false
+      );
     }
   }
 
@@ -265,14 +265,18 @@ function dealCardColumnPiles() {
 
     //column1button***********************************************************************************************************************/
     if (column1[a].orientation() == "facingup") {
-      col1butt.addEventListener('click', function () {
-        var cardmoved = checkifcardgoesondifferentpile("column1");
-        if (cardmoved) {
-          c1[0].textContent = "";
-          dealCardColumnPiles();
-          console.log(column1);
-        }
-      }, false);
+      col1butt.addEventListener(
+        "click",
+        function () {
+          var cardmoved = checkifcardgoesondifferentpile("column1");
+          if (cardmoved) {
+            c1[0].textContent = "";
+            dealCardColumnPiles();
+            console.log(column1);
+          }
+        },
+        false
+      );
     }
   }
 
@@ -289,21 +293,23 @@ function dealCardColumnPiles() {
     col2butt.className += "c2 r" + (b + 1).toString();
     c2[0].appendChild(col2butt);
 
-
     //column2button***********************************************************************************************************************/
 
     if (column2[b].orientation() == "facingup") {
-      col2butt.addEventListener('click', function () {
-        var cardmoved = checkifcardgoesondifferentpile("column2");
-        if (cardmoved) {
-          c2[0].textContent = "";
-          dealCardColumnPiles();
-          console.log(column2);
-        }
-      }, false);
+      col2butt.addEventListener(
+        "click",
+        function () {
+          var cardmoved = checkifcardgoesondifferentpile("column2");
+          if (cardmoved) {
+            c2[0].textContent = "";
+            dealCardColumnPiles();
+            console.log(column2);
+          }
+        },
+        false
+      );
     }
   }
-
 
   //***********************************************************************************************************************/
 
@@ -318,20 +324,22 @@ function dealCardColumnPiles() {
     col3butt.className += "c3 r" + (c + 1).toString();
     c3[0].appendChild(col3butt);
 
-
     //column3button***********************************************************************************************************************/
     if (column3[c].orientation() == "facingup") {
-      col3butt.addEventListener('click', function () {
-        var cardmoved = checkifcardgoesondifferentpile("column3");
-        if (cardmoved) {
-          c3[0].textContent = "";
-          dealCardColumnPiles();
-          console.log(column3);
-        }
-      }, false);
+      col3butt.addEventListener(
+        "click",
+        function () {
+          var cardmoved = checkifcardgoesondifferentpile("column3");
+          if (cardmoved) {
+            c3[0].textContent = "";
+            dealCardColumnPiles();
+            console.log(column3);
+          }
+        },
+        false
+      );
     }
   }
-
 
   //***********************************************************************************************************************/
 
@@ -346,20 +354,22 @@ function dealCardColumnPiles() {
     col4butt.className += "c4 r" + (d + 1).toString();
     c4[0].appendChild(col4butt);
 
-
     //column4button***********************************************************************************************************************/
     if (column4[d].orientation() == "facingup") {
-      col4butt.addEventListener('click', function () {
-        var cardmoved = checkifcardgoesondifferentpile("column4");
-        if (cardmoved) {
-          c4[0].textContent = "";
-          dealCardColumnPiles();
-          console.log(column4);
-        }
-      }, false);
+      col4butt.addEventListener(
+        "click",
+        function () {
+          var cardmoved = checkifcardgoesondifferentpile("column4");
+          if (cardmoved) {
+            c4[0].textContent = "";
+            dealCardColumnPiles();
+            console.log(column4);
+          }
+        },
+        false
+      );
     }
   }
-
 
   //***********************************************************************************************************************/
 
@@ -374,20 +384,22 @@ function dealCardColumnPiles() {
     col5butt.className += "c5 r" + (e + 1).toString();
     c5[0].appendChild(col5butt);
 
-
     //column5button***********************************************************************************************************************/
     if (column5[e].orientation() == "facingup") {
-      col5butt.addEventListener('click', function () {
-        var cardmoved = checkifcardgoesondifferentpile("column5");
-        if (cardmoved) {
-          c5[0].textContent = "";
-          dealCardColumnPiles();
-          console.log(column5);
-        }
-      }, false);
+      col5butt.addEventListener(
+        "click",
+        function () {
+          var cardmoved = checkifcardgoesondifferentpile("column5");
+          if (cardmoved) {
+            c5[0].textContent = "";
+            dealCardColumnPiles();
+            console.log(column5);
+          }
+        },
+        false
+      );
     }
   }
-
 
   //***********************************************************************************************************************/
 
@@ -402,20 +414,22 @@ function dealCardColumnPiles() {
     col6butt.className += "c6 r" + (f + 1).toString();
     c6[0].appendChild(col6butt);
 
-
     //column6button***********************************************************************************************************************/
     if (column6[f].orientation() == "facingup") {
-      col6butt.addEventListener('click', function () {
-        var cardmoved = checkifcardgoesondifferentpile("column6");
-        if (cardmoved) {
-          c6[0].textContent = "";
-          dealCardColumnPiles();
-          console.log(column6);
-        }
-      }, false);
+      col6butt.addEventListener(
+        "click",
+        function () {
+          var cardmoved = checkifcardgoesondifferentpile("column6");
+          if (cardmoved) {
+            c6[0].textContent = "";
+            dealCardColumnPiles();
+            console.log(column6);
+          }
+        },
+        false
+      );
     }
   }
-
 
   //***********************************************************************************************************************/
 
@@ -430,47 +444,175 @@ function dealCardColumnPiles() {
     col7butt.className += "c7 r" + (g + 1).toString();
     c7[0].appendChild(col7butt);
 
-
     //column7button***********************************************************************************************************************/
     if (column7[g].orientation() == "facingup") {
-      col7butt.addEventListener('click', function () {
-        var cardmoved = checkifcardgoesondifferentpile("column7");
-        if (cardmoved) {
-          c7[0].textContent = "";
-          console.log("7 clicked");
-          dealCardColumnPiles();
-          console.log(column7);
-        }
-      }, false);
+      col7butt.addEventListener(
+        "click",
+        function () {
+          var cardmoved = checkifcardgoesondifferentpile("column7");
+          if (cardmoved) {
+            c7[0].textContent = "";
+            dealCardColumnPiles();
+            console.log(column7);
+          }
+        },
+        false
+      );
     }
   }
 
-
   //***********************************************************************************************************************/
-
 }
 
+function createFoundation() {
+  //clubs
+  if (clubs.length != 0) {
+    var club = document.getElementsByClassName("clubs");
+    var clubspilebutton = document.createElement("button");
+    clubspilebutton.className += "clubscard";
+    var clubsimage = clubs[clubs.length - 1].image;
+    // var clubsimage = "images/card_background/cardBackground.png";
+    var clubsbuttonimage = document.createElement("img");
+    clubsbuttonimage.src = clubsimage;
+    clubspilebutton.appendChild(clubsbuttonimage);
+    club[0].appendChild(clubspilebutton);
 
+    clubspilebutton.addEventListener(
+      "click",
+      function () {
+        var cardmoved = checkifcardgoesondifferentpile("clubs");
+        if (cardmoved) {
+          club[0].textContent = "";
+          createFoundation();
+          console.log(clubs);
+        }
+      },
+      false
+    );
+  }
+
+  //hearts
+  if (hearts.length != 0) {
+    var heart = document.getElementsByClassName("hearts");
+    var heartspilebutton = document.createElement("button");
+    heartspilebutton.className += "heartscard";
+    var heartsimage = hearts[hearts.length - 1].image;
+    // var heartsimage = "images/card_background/cardBackground.png";
+    var heartsbuttonimage = document.createElement("img");
+    heartsbuttonimage.src = heartsimage;
+    heartspilebutton.appendChild(heartsbuttonimage);
+    heart[0].appendChild(heartspilebutton);
+
+    heartspilebutton.addEventListener(
+      "click",
+      function () {
+        var cardmoved = checkifcardgoesondifferentpile("hearts");
+        if (cardmoved) {
+          heart[0].textContent = "";
+          createFoundation();
+          console.log(hearts);
+        }
+      },
+      false
+    );
+  }
+
+  //spades
+  if (spades.length != 0) {
+    var spade = document.getElementsByClassName("spades");
+    var spadespilebutton = document.createElement("button");
+    spadespilebutton.className += "spadescard";
+    var spadesimage = spades[spades.length - 1].image;
+    // var spadesimage = "images/card_background/cardBackground.png";
+    var spadesbuttonimage = document.createElement("img");
+    spadesbuttonimage.src = spadesimage;
+    spadespilebutton.appendChild(spadesbuttonimage);
+    spade[0].appendChild(spadespilebutton);
+
+    spadespilebutton.addEventListener(
+      "click",
+      function () {
+        var cardmoved = checkifcardgoesondifferentpile("spades");
+        if (cardmoved) {
+          spade[0].textContent = "";
+          createFoundation();
+          console.log(spades);
+        }
+      },
+      false
+    );
+  }
+
+  //diamonds
+  if (diamonds.length != 0) {
+    var diamond = document.getElementsByClassName("diamonds");
+    var diamondspilebutton = document.createElement("button");
+    diamondspilebutton.className += "diamondscard";
+    var diamondsimage = diamonds[diamonds.length - 1].image;
+    // var diamondsimage = "images/card_background/cardBackground.png";
+    var diamondsbuttonimage = document.createElement("img");
+    diamondsbuttonimage.src = diamondsimage;
+    diamondspilebutton.appendChild(diamondsbuttonimage);
+    diamond[0].appendChild(diamondspilebutton);
+
+    diamondspilebutton.addEventListener(
+      "click",
+      function () {
+        var cardmoved = checkifcardgoesondifferentpile("diamonds");
+        if (cardmoved) {
+          diamond[0].textContent = "";
+          createFoundation();
+          console.log(diamonds);
+        }
+      },
+      false
+    );
+  }
+}
 
 //************************************************************************************* */
 
-
 function checkifcardgoesondifferentpile(arrayname) {
+  var cardgoestodifferentpile = false;
+  if (arrayname == "wastepile") {
+    //if coming from wastepile
 
-  if (arrayname == "wastepile") {   //if coming from wastepile
+    while (cardgoestodifferentpile == false) {
+      cardgoestodifferentpile = checkClubs(wastepile[wastepile.length - 1]);
+      if (cardgoestodifferentpile) {
+        console.log(clubs);
+        break;
+      }
+      cardgoestodifferentpile = checkHearts(wastepile[wastepile.length - 1]);
+      if (cardgoestodifferentpile) {
+        console.log(hearts);
+        break;
+      }
+      cardgoestodifferentpile = checkSpades(wastepile[wastepile.length - 1]);
+      if (cardgoestodifferentpile) {
+        console.log(spades);
+        break;
+      }
+      cardgoestodifferentpile = checkDiamonds(wastepile[wastepile.length - 1]);
+      console.log(diamonds);
+      break;
+    }
 
-    console.log(arrayname);
-    wastepile.splice(-1, 1);
-    return true;
-
-  } else if (arrayname == "column1") {    //if coming from column1
+    if (cardgoestodifferentpile) {
+      return true;
+    } else {
+      return false;
+    }
+  } else if (arrayname == "column1") {
+    //if coming from column1
     console.log(arrayname);
     column1.splice(-1, 1);
     if (column1.length >= 1) {
       column1[column1.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column2") {    //if coming from column2
+  } else if (arrayname == "column2") {
+    //if coming from column2
     console.log(arrayname);
     column2.splice(-1, 1);
     if (column2.length >= 1) {
@@ -478,76 +620,130 @@ function checkifcardgoesondifferentpile(arrayname) {
     }
     // console.log(column2[0]);
     return true;
-  } else if (arrayname == "column3") {    //if coming from column3
+  } else if (arrayname == "column3") {
+    //if coming from column3
     console.log(arrayname);
     column3.splice(-1, 1);
     if (column3.length >= 1) {
       column3[column3.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column4") {    //if coming from column4
+  } else if (arrayname == "column4") {
+    //if coming from column4
     console.log(arrayname);
     column4.splice(-1, 1);
     if (column4.length >= 1) {
       column4[column4.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column5") {    //if coming from column5
+  } else if (arrayname == "column5") {
+    //if coming from column5
     console.log(arrayname);
     column5.splice(-1, 1);
     if (column5.length >= 1) {
       column5[column5.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column6") {    //if coming from column6
+  } else if (arrayname == "column6") {
+    //if coming from column6
     console.log(arrayname);
     column6.splice(-1, 1);
     if (column6.length >= 1) {
       column6[column6.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column7") {    //if coming from column7
+  } else if (arrayname == "column7") {
+    //if coming from column7
     console.log(arrayname);
     column7.splice(-1, 1);
     if (column7.length >= 1) {
       column7[column7.length - 1].faceup();
     }
     return true;
-    // } else if (arrayname == "clubs") {    //if coming from column7
-    //   console.log(arrayname);
-    //   clubs.splice(-1, 1);
-    //   if (clubs.length >= 1) {
-    //     clubs[clubs.length - 1].faceup();
-    //   }
-    //   return true;
-    // } else if (arrayname == "hearts") {    //if coming from column7
-    //   console.log(arrayname);
-    //   hearts.splice(-1, 1);
-    //   if (hearts.length >= 1) {
-    //     hearts[hearts.length - 1].faceup();
-    //   }
-    //   return true;
-    // } else if (arrayname == "spades") {    //if coming from column7
-    //   console.log(arrayname);
-    //   spades.splice(-1, 1);
-    //   if (spades.length >= 1) {
-    //     spades[spades.length - 1].faceup();
-    //   }
-    //   return true;
-    // } else if (arrayname == "diamonds") {    //if coming from column7
-    //   console.log(arrayname);
-    //   diamonds.splice(-1, 1);
-    //   if (diamonds.length >= 1) {
-    //     diamonds[diamonds.length - 1].faceup();
-    //   }
-    //   return true;
+  } else if (arrayname == "clubs") {
+    //if coming from column7
+    console.log(arrayname);
+    clubs.splice(-1, 1);
+    if (clubs.length >= 1) {
+      clubs[clubs.length - 1].faceup();
+    }
+    return true;
+  } else if (arrayname == "hearts") {
+    //if coming from column7
+    console.log(arrayname);
+    hearts.splice(-1, 1);
+    if (hearts.length >= 1) {
+      hearts[hearts.length - 1].faceup();
+    }
+    return true;
+  } else if (arrayname == "spades") {
+    //if coming from column7
+    console.log(arrayname);
+    spades.splice(-1, 1);
+    if (spades.length >= 1) {
+      spades[spades.length - 1].faceup();
+    }
+    return true;
+  } else if (arrayname == "diamonds") {
+    //if coming from column7
+    console.log(arrayname);
+    diamonds.splice(-1, 1);
+    if (diamonds.length >= 1) {
+      diamonds[diamonds.length - 1].faceup();
+    }
+    return true;
   } else {
     return false;
   }
+}
 
-
+function checkClubs(cardbeingchecked) {
 
 }
+function checkHearts(cardbeingchecked) {
+
+}
+function checkSpades(cardbeingchecked) {
+
+}
+function checkDiamonds(cardbeingchecked) {
+
+}
+// function check1(cardbeingchecked) {
+//   if () {
+
+//   }
+// }
+// function check2(cardbeingchecked) {
+//   if () {
+
+//   }
+// }
+// function check3(cardbeingchecked) {
+//   if () {
+
+//   }
+// }
+// function check4(cardbeingchecked) {
+//   if () {
+
+//   }
+// }
+// function check5(cardbeingchecked) {
+//   if () {
+
+//   }
+// }
+// function check6(cardbeingchecked) {
+//   if () {
+
+//   }
+// }
+// function check7(cardbeingchecked) {
+//   if () {
+
+//   }
+// }
 
 //************************************************************************************* */
 
@@ -570,7 +766,10 @@ function arraysEqual(a, b) {
 class Card {
   constructor(card) {
     this.filename = card;
-    this.facevalue = card.substring(card.indexOf("_") + 4).replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z]+/g, "");
+    this.facevalue = card
+      .substring(card.indexOf("_") + 4)
+      .replace(/\.[^/.]+$/, "")
+      .replace(/[^a-zA-Z]+/g, "");
     this.numvalue = this.findnumvalue(card);
     this.facingup = true;
     this.facingdown = false;
