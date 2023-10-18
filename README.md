@@ -26,7 +26,7 @@ A live demo of the game can be found [here](#). (Provide a link to your live dem
 
 ## How to Play
 
-Instructions on how to play the game can be found within the game itself. Simply open the `index.html` file in your web browser to start playing.
+Instructions on how to play the game can be found within the game itself. Simply open the `main.html` file in your web browser to start playing.
 
 ## Prerequisites
 
@@ -37,11 +37,11 @@ Make sure you have the following software installed:
 ## Installation
 
 1. Clone or download this repository.
-2. Open the `index.html` file in your web browser.
+2. Open the `main.html` file in your web browser.
 
 ## Usage
 
-- Click and drag cards to move them.
+- Click the cards to move them, unable to drag and drop.
 - Follow the standard Solitaire rules to arrange the cards.
 
 ## Customization
