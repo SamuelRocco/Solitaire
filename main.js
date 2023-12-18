@@ -123,6 +123,7 @@ function dealCards() {
     if (i < 1) {
       item = shuffledDeck.shift();
       item.facedown();
+      // item.faceup();
       column2.push(item);
     } else if (i == 1) {
       item = shuffledDeck.shift();
@@ -133,6 +134,7 @@ function dealCards() {
     if (i < 2) {
       item = shuffledDeck.shift();
       item.facedown();
+      // item.faceup();
       column3.push(item);
     } else if (i == 2) {
       item = shuffledDeck.shift();
@@ -235,7 +237,10 @@ function createStockAndWaste() {
       wastepilebutton.addEventListener(
         "click",
         function () {
-          var cardmoved = checkifcardgoesondifferentpile("wastepile");
+          var cardmoved = checkifcardgoesondifferentpile(
+            wastepile,
+            wastepile.length - 1
+          );
           if (cardmoved) {
             var waste = document.getElementsByClassName("waste");
             waste[0].textContent = "";
@@ -288,7 +293,11 @@ function dealCardColumnPiles() {
       col1butt.addEventListener(
         "click",
         function () {
-          var cardmoved = checkifcardgoesondifferentpile("column1");
+          var cardClickedIndex = this.classList[1][1] - 1;
+          var cardmoved = checkifcardgoesondifferentpile(
+            column1,
+            cardClickedIndex
+          );
           if (cardmoved) {
             c1[0].textContent = "";
             dealCardColumnPiles();
@@ -319,7 +328,11 @@ function dealCardColumnPiles() {
       col2butt.addEventListener(
         "click",
         function () {
-          var cardmoved = checkifcardgoesondifferentpile("column2");
+          var cardClickedIndex = this.classList[1][1] - 1;
+          var cardmoved = checkifcardgoesondifferentpile(
+            column2,
+            cardClickedIndex
+          );
           if (cardmoved) {
             c2[0].textContent = "";
             dealCardColumnPiles();
@@ -349,7 +362,11 @@ function dealCardColumnPiles() {
       col3butt.addEventListener(
         "click",
         function () {
-          var cardmoved = checkifcardgoesondifferentpile("column3");
+          var cardClickedIndex = this.classList[1][1] - 1;
+          var cardmoved = checkifcardgoesondifferentpile(
+            column3,
+            cardClickedIndex
+          );
           if (cardmoved) {
             c3[0].textContent = "";
             dealCardColumnPiles();
@@ -379,7 +396,11 @@ function dealCardColumnPiles() {
       col4butt.addEventListener(
         "click",
         function () {
-          var cardmoved = checkifcardgoesondifferentpile("column4");
+          var cardClickedIndex = this.classList[1][1] - 1;
+          var cardmoved = checkifcardgoesondifferentpile(
+            column4,
+            cardClickedIndex
+          );
           if (cardmoved) {
             c4[0].textContent = "";
             dealCardColumnPiles();
@@ -409,7 +430,11 @@ function dealCardColumnPiles() {
       col5butt.addEventListener(
         "click",
         function () {
-          var cardmoved = checkifcardgoesondifferentpile("column5");
+          var cardClickedIndex = this.classList[1][1] - 1;
+          var cardmoved = checkifcardgoesondifferentpile(
+            column5,
+            cardClickedIndex
+          );
           if (cardmoved) {
             c5[0].textContent = "";
             dealCardColumnPiles();
@@ -439,7 +464,11 @@ function dealCardColumnPiles() {
       col6butt.addEventListener(
         "click",
         function () {
-          var cardmoved = checkifcardgoesondifferentpile("column6");
+          var cardClickedIndex = this.classList[1][1] - 1;
+          var cardmoved = checkifcardgoesondifferentpile(
+            column6,
+            cardClickedIndex
+          );
           if (cardmoved) {
             c6[0].textContent = "";
             dealCardColumnPiles();
@@ -469,7 +498,11 @@ function dealCardColumnPiles() {
       col7butt.addEventListener(
         "click",
         function () {
-          var cardmoved = checkifcardgoesondifferentpile("column7");
+          var cardClickedIndex = this.classList[1][1] - 1;
+          var cardmoved = checkifcardgoesondifferentpile(
+            column7,
+            cardClickedIndex
+          );
           if (cardmoved) {
             c7[0].textContent = "";
             dealCardColumnPiles();
@@ -500,7 +533,7 @@ function createFoundation() {
     clubspilebutton.addEventListener(
       "click",
       function () {
-        var cardmoved = checkifcardgoesondifferentpile("clubs");
+        var cardmoved = checkifcardgoesondifferentpile(clubs, -1);
         if (cardmoved) {
           club[0].textContent = "";
           createFoundation();
@@ -526,7 +559,7 @@ function createFoundation() {
     heartspilebutton.addEventListener(
       "click",
       function () {
-        var cardmoved = checkifcardgoesondifferentpile("hearts");
+        var cardmoved = checkifcardgoesondifferentpile(hearts, -1);
         if (cardmoved) {
           heart[0].textContent = "";
           createFoundation();
@@ -552,7 +585,7 @@ function createFoundation() {
     spadespilebutton.addEventListener(
       "click",
       function () {
-        var cardmoved = checkifcardgoesondifferentpile("spades");
+        var cardmoved = checkifcardgoesondifferentpile(spades, -1);
         if (cardmoved) {
           spade[0].textContent = "";
           createFoundation();
@@ -578,7 +611,7 @@ function createFoundation() {
     diamondspilebutton.addEventListener(
       "click",
       function () {
-        var cardmoved = checkifcardgoesondifferentpile("diamonds");
+        var cardmoved = checkifcardgoesondifferentpile(diamonds, -1);
         if (cardmoved) {
           diamond[0].textContent = "";
           createFoundation();
@@ -602,80 +635,71 @@ function rotateToIndex(arr, index) {
   return part1.concat(part2);
 }
 
-function checkingSystem(card, cards, pile, originPile) {
-  //card: exact card clicked. cards: array of cards from the pile that card is at. pile: the pile seen by the for loop as a posible prospect for the cards
-  var indexOfCard = cards.indexOf(card);
-  // if pile is empty, put a king there:
+function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
+  // console.log(cardsBeingMoved);
+  // console.log(destinationPile);
+  startIndex = originPile.indexOf(cardsBeingMoved[0]);
   if (
-    pile.length == 0 &&
-    card.numvalue == 13 &&
-    pile != spades &&
-    pile != diamonds &&
-    pile != hearts &&
-    pile != clubs
+    cardsBeingMoved[0].numvalue == 13 &&
+    destinationPile.length == 0 &&
+    destinationPile != spades &&
+    destinationPile != diamonds &&
+    destinationPile != hearts &&
+    destinationPile != clubs
   ) {
-    console.log(originPile);
-    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
+    // console.log(originPile === wastepile);
+    destinationPile.push(originPile.splice(startIndex, originPile.length)[0]);
     return true;
   }
-
-  // if the card is for the foundation piles, start with aces and go up
-  if (
-    card.facevalue == "clubs" &&
-    clubs.length + 1 == card.numvalue
-  ) {
-    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
-    return true;
-  } else if (
-    card.facevalue == "spades" &&
-    spades.length + 1 == card.numvalue
-  ) {
-    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
-    return true;
-  } else if (
-    card.facevalue == "diamonds" &&
-    diamonds.length + 1 == card.numvalue
-  ) {
-    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
-    return true;
-  } else if (
-    card.facevalue == "hearts" &&
-    hearts.length + 1 == card.numvalue
-  ) {
-    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
-    return true;
-  } else {
-    return false;
-  }
+  return false;
 }
 
-function checkifcardgoesondifferentpile(arrayname) {
+function checkifcardgoesondifferentpile(array, i) {
   var cardgoestodifferentpile = false;
-  if (arrayname == "wastepile") {
-    //if coming from wastepile
-    var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(wastepile));
-    var deletedPile = rotatedArray.splice(0, 1);
-    console.log(rotatedArray);
-    console.log(deletedPile);
+  if (array == wastepile) {
+    var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array)); // rotates the array of all the piles so that the specified pile is at index 0 and then deletes it
+    rotatedArray.splice(0, 1);
+    var arrayOfCardsAfterIndex = array.slice(i, array.length); //these are the cards from a pile where a card was clicked, these are all the cards after that clicked card in an array
+    console.log(arrayOfCardsAfterIndex);
 
     for (var i = 0; i < rotatedArray.length; i++) {
-      pile = rotatedArray[i];
+      var destinationPile = rotatedArray[i];
       cardgoestodifferentpile = checkingSystem(
-        wastepile[wastepile.length - 1],
-        wastepile,
-        pile,
-        deletedPile[0]
+        destinationPile,
+        array,
+        arrayOfCardsAfterIndex
       );
       if (cardgoestodifferentpile) {
-        rotatedArray = [];
-        deletedPile = [];
         updatePiles();
         return cardgoestodifferentpile;
       }
     }
-    rotatedArray = [];
-    deletedPile = [];
     return cardgoestodifferentpile;
+
+    // //if coming from wastepile
+    // var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(wastepile));
+    // var deletedPile = rotatedArray.splice(0, 1);
+    // console.log(rotatedArray);
+    // console.log(deletedPile);
+
+    // for (var i = 0; i < rotatedArray.length; i++) {
+    //   pile = rotatedArray[i];
+    //   cardgoestodifferentpile = checkingSystem(
+    //     wastepile[wastepile.length - 1],
+    //     wastepile,
+    //     pile,
+    //     deletedPile[0]
+    //   );
+    //   if (cardgoestodifferentpile) {
+    //     rotatedArray = [];
+    //     deletedPile = [];
+    //     updatePiles();
+    //     return cardgoestodifferentpile;
+    //   }
+    // }
+    // rotatedArray = [];
+    // deletedPile = [];
+    // return cardgoestodifferentpile;
 
     // wastecard = wastepile[wastepile.length - 1];
     // while (cardgoestodifferentpile == false) {
@@ -717,90 +741,90 @@ function checkifcardgoesondifferentpile(arrayname) {
     //   break;
     // }
     // return cardgoestodifferentpile
-  } else if (arrayname == "column1") {
+  } else if (array == column1) {
     //if coming from column1
-    console.log(arrayname);
+    console.log(array);
     column1.splice(-1, 1);
     if (column1.length >= 1) {
       column1[column1.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column2") {
+  } else if (array == column2) {
     //if coming from column2
-    console.log(arrayname);
+    console.log(array);
     column2.splice(-1, 1);
     if (column2.length >= 1) {
       column2[column2.length - 1].faceup();
     }
     // console.log(column2[0]);
     return true;
-  } else if (arrayname == "column3") {
+  } else if (array == column3) {
     //if coming from column3
-    console.log(arrayname);
+    console.log(array);
     column3.splice(-1, 1);
     if (column3.length >= 1) {
       column3[column3.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column4") {
+  } else if (array == column4) {
     //if coming from column4
-    console.log(arrayname);
+    console.log(array);
     column4.splice(-1, 1);
     if (column4.length >= 1) {
       column4[column4.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column5") {
+  } else if (array == column5) {
     //if coming from column5
-    console.log(arrayname);
+    console.log(array);
     column5.splice(-1, 1);
     if (column5.length >= 1) {
       column5[column5.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column6") {
+  } else if (array == column6) {
     //if coming from column6
-    console.log(arrayname);
+    console.log(array);
     column6.splice(-1, 1);
     if (column6.length >= 1) {
       column6[column6.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "column7") {
+  } else if (array == column7) {
     //if coming from column7
-    console.log(arrayname);
+    console.log(array);
     column7.splice(-1, 1);
     if (column7.length >= 1) {
       column7[column7.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "clubs") {
+  } else if (array == clubs) {
     //if coming from column7
-    console.log(arrayname);
+    console.log(array);
     clubs.splice(-1, 1);
     if (clubs.length >= 1) {
       clubs[clubs.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "hearts") {
+  } else if (array == hearts) {
     //if coming from column7
-    console.log(arrayname);
+    console.log(array);
     hearts.splice(-1, 1);
     if (hearts.length >= 1) {
       hearts[hearts.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "spades") {
+  } else if (array == spades) {
     //if coming from column7
-    console.log(arrayname);
+    console.log(array);
     spades.splice(-1, 1);
     if (spades.length >= 1) {
       spades[spades.length - 1].faceup();
     }
     return true;
-  } else if (arrayname == "diamonds") {
+  } else if (array == diamonds) {
     //if coming from column7
-    console.log(arrayname);
+    console.log(array);
     diamonds.splice(-1, 1);
     if (diamonds.length >= 1) {
       diamonds[diamonds.length - 1].faceup();
