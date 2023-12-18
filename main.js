@@ -15,8 +15,23 @@ var column4 = [];
 var column5 = [];
 var column6 = [];
 var column7 = [];
+const allArrays = [];
 
 function pageload() {
+  allArrays.push(
+    wastepile,
+    clubs,
+    hearts,
+    spades,
+    diamonds,
+    column1,
+    column2,
+    column3,
+    column4,
+    column5,
+    column6,
+    column7
+  );
   cardfiles.push(
     "10_of_clubs.png",
     "10_of_diamonds.png",
@@ -89,6 +104,11 @@ function pageload() {
   console.log(column6);
   console.log(column7);
   console.log(stockpile);
+}
+
+function updatePiles() {
+  dealCardColumnPiles();
+  createFoundation();
 }
 
 function dealCards() {
@@ -570,53 +590,133 @@ function createFoundation() {
   }
 }
 
-//************************************************************************************* */
+//**************************************************************************************/
+function rotateToIndex(arr, index) {
+  if (index < 0 || index >= arr.length) {
+    return arr; // Return the original array if the index is out of bounds
+  }
+
+  let part1 = arr.slice(index); // Elements from index to end
+  let part2 = arr.slice(0, index); // Elements from start to index (exclusive)
+
+  return part1.concat(part2);
+}
+
+function checkingSystem(card, cards, pile, originPile) {
+  //card: exact card clicked. cards: array of cards from the pile that card is at. pile: the pile seen by the for loop as a posible prospect for the cards
+  var indexOfCard = cards.indexOf(card);
+  // if pile is empty, put a king there:
+  if (
+    pile.length == 0 &&
+    card.numvalue == 13 &&
+    pile != spades &&
+    pile != diamonds &&
+    pile != hearts &&
+    pile != clubs
+  ) {
+    console.log(originPile);
+    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
+    return true;
+  }
+
+  // if the card is for the foundation piles, start with aces and go up
+  if (
+    card.facevalue == "clubs" &&
+    clubs.length + 1 == card.numvalue
+  ) {
+    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
+    return true;
+  } else if (
+    card.facevalue == "spades" &&
+    spades.length + 1 == card.numvalue
+  ) {
+    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
+    return true;
+  } else if (
+    card.facevalue == "diamonds" &&
+    diamonds.length + 1 == card.numvalue
+  ) {
+    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
+    return true;
+  } else if (
+    card.facevalue == "hearts" &&
+    hearts.length + 1 == card.numvalue
+  ) {
+    pile.push(originPile.splice(indexOfCard, originPile.length)[0]);
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function checkifcardgoesondifferentpile(arrayname) {
   var cardgoestodifferentpile = false;
   if (arrayname == "wastepile") {
     //if coming from wastepile
-    wastecard = wastepile[wastepile.length - 1];
-    while (cardgoestodifferentpile == false) {
-      cardgoestodifferentpile = checkClubs(wastecard);
-      if (cardgoestodifferentpile) {
-        //clubs
-        // wastepile.splice(-1, 1);
-        clubs.push(wastepile.splice(-1, 1)[0])
-        createFoundation();
-        console.log(clubs);
-        break;
-      }
-      cardgoestodifferentpile = checkHearts(wastecard);
-      if (cardgoestodifferentpile) {
-        //hearts
-        // wastepile.splice(-1, 1);
-        hearts.push(wastepile.splice(-1, 1)[0])
-        createFoundation();
-        console.log(hearts);
-        break;
-      }
-      cardgoestodifferentpile = checkSpades(wastecard);
-      if (cardgoestodifferentpile) {
-        //spades
-        // wastepile.splice(-1, 1);
-        spades.push(wastepile.splice(-1, 1)[0])
-        createFoundation();
-        console.log(spades);
-        break;
-      }
-      cardgoestodifferentpile = checkDiamonds(wastecard);
-      if (cardgoestodifferentpile){
-        // wastepile.splice(-1,1);
-        diamonds.push(wastepile.splice(-1, 1)[0])
-        createFoundation();
-        console.log(diamonds); //diamonds
-        break;
-      }
-      break;
-    }
-    return cardgoestodifferentpile
+    var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(wastepile));
+    var deletedPile = rotatedArray.splice(0, 1);
+    console.log(rotatedArray);
+    console.log(deletedPile);
 
+    for (var i = 0; i < rotatedArray.length; i++) {
+      pile = rotatedArray[i];
+      cardgoestodifferentpile = checkingSystem(
+        wastepile[wastepile.length - 1],
+        wastepile,
+        pile,
+        deletedPile[0]
+      );
+      if (cardgoestodifferentpile) {
+        rotatedArray = [];
+        deletedPile = [];
+        updatePiles();
+        return cardgoestodifferentpile;
+      }
+    }
+    rotatedArray = [];
+    deletedPile = [];
+    return cardgoestodifferentpile;
+
+    // wastecard = wastepile[wastepile.length - 1];
+    // while (cardgoestodifferentpile == false) {
+    //   cardgoestodifferentpile = checkClubs(wastecard);
+    //   if (cardgoestodifferentpile) {
+    //     //clubs
+    //     // wastepile.splice(-1, 1);
+    //     clubs.push(wastepile.splice(-1, 1)[0])
+    //     createFoundation();
+    //     console.log(clubs);
+    //     break;
+    //   }
+    //   cardgoestodifferentpile = checkHearts(wastecard);
+    //   if (cardgoestodifferentpile) {
+    //     //hearts
+    //     // wastepile.splice(-1, 1);
+    //     hearts.push(wastepile.splice(-1, 1)[0])
+    //     createFoundation();
+    //     console.log(hearts);
+    //     break;
+    //   }
+    //   cardgoestodifferentpile = checkSpades(wastecard);
+    //   if (cardgoestodifferentpile) {
+    //     //spades
+    //     // wastepile.splice(-1, 1);
+    //     spades.push(wastepile.splice(-1, 1)[0])
+    //     createFoundation();
+    //     console.log(spades);
+    //     break;
+    //   }
+    //   cardgoestodifferentpile = checkDiamonds(wastecard);
+    //   if (cardgoestodifferentpile){
+    //     // wastepile.splice(-1,1);
+    //     diamonds.push(wastepile.splice(-1, 1)[0])
+    //     createFoundation();
+    //     console.log(diamonds); //diamonds
+    //     break;
+    //   }
+    //   break;
+    // }
+    // return cardgoestodifferentpile
   } else if (arrayname == "column1") {
     //if coming from column1
     console.log(arrayname);
@@ -712,22 +812,24 @@ function checkifcardgoesondifferentpile(arrayname) {
 }
 
 function checkClubs(cardbeingchecked) {
-  // splicedCard = wastepile.splice(-1, 1);
-  // && cardbeingchecked.numvalue == 1+clubs[-1].numvalue
-  // && (cardbeingchecked.numvalue == 1+(clubs[clubs.length -1].numvalue))
-  if (cardbeingchecked.facevalue == "clubs" && clubs.length + 1 == cardbeingchecked.numvalue) {
+  if (
+    cardbeingchecked.facevalue == "clubs" &&
+    clubs.length + 1 == cardbeingchecked.numvalue
+  ) {
     return true;
   } else {
     return false;
   }
-
 }
 function checkHearts(cardbeingchecked) {
   // splicedCard = wastepile.splice(-1, 1);
-  if(cardbeingchecked.facevalue == "hearts" && hearts.length + 1 == cardbeingchecked.numvalue) {
+  if (
+    cardbeingchecked.facevalue == "hearts" &&
+    hearts.length + 1 == cardbeingchecked.numvalue
+  ) {
     return true;
   } else {
-    return false
+    return false;
   }
   console.log(splicedCard[0]);
   console.log(splicedCard[0].facevalue == "hearts");
@@ -735,10 +837,13 @@ function checkHearts(cardbeingchecked) {
 }
 function checkSpades(cardbeingchecked) {
   // splicedCard = wastepile.splice(-1, 1);
-  if(cardbeingchecked.facevalue == "spades" && spades.length + 1 == cardbeingchecked.numvalue) {
+  if (
+    cardbeingchecked.facevalue == "spades" &&
+    spades.length + 1 == cardbeingchecked.numvalue
+  ) {
     return true;
   } else {
-    return false
+    return false;
   }
   console.log(splicedCard[0]);
   console.log(splicedCard[0].facevalue == "spades");
@@ -746,10 +851,13 @@ function checkSpades(cardbeingchecked) {
 }
 function checkDiamonds(cardbeingchecked) {
   // splicedCard = wastepile.splice(-1, 1);
-  if(cardbeingchecked.facevalue == "diamonds" && diamonds.length + 1 == cardbeingchecked.numvalue) {
+  if (
+    cardbeingchecked.facevalue == "diamonds" &&
+    diamonds.length + 1 == cardbeingchecked.numvalue
+  ) {
     return true;
   } else {
-    return false
+    return false;
   }
   console.log(splicedCard[0]);
   console.log(splicedCard[0].facevalue == "diamonds");
