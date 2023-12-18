@@ -576,33 +576,47 @@ function checkifcardgoesondifferentpile(arrayname) {
   var cardgoestodifferentpile = false;
   if (arrayname == "wastepile") {
     //if coming from wastepile
-
+    wastecard = wastepile[wastepile.length - 1];
     while (cardgoestodifferentpile == false) {
-      cardgoestodifferentpile = checkClubs(wastepile[wastepile.length - 1]);
+      cardgoestodifferentpile = checkClubs(wastecard);
       if (cardgoestodifferentpile) {
+        //clubs
+        // wastepile.splice(-1, 1);
+        clubs.push(wastepile.splice(-1, 1)[0])
+        createFoundation();
         console.log(clubs);
         break;
       }
-      cardgoestodifferentpile = checkHearts(wastepile[wastepile.length - 1]);
+      cardgoestodifferentpile = checkHearts(wastecard);
       if (cardgoestodifferentpile) {
+        //hearts
+        // wastepile.splice(-1, 1);
+        hearts.push(wastepile.splice(-1, 1)[0])
+        createFoundation();
         console.log(hearts);
         break;
       }
-      cardgoestodifferentpile = checkSpades(wastepile[wastepile.length - 1]);
+      cardgoestodifferentpile = checkSpades(wastecard);
       if (cardgoestodifferentpile) {
+        //spades
+        // wastepile.splice(-1, 1);
+        spades.push(wastepile.splice(-1, 1)[0])
+        createFoundation();
         console.log(spades);
         break;
       }
-      cardgoestodifferentpile = checkDiamonds(wastepile[wastepile.length - 1]);
-      console.log(diamonds);
+      cardgoestodifferentpile = checkDiamonds(wastecard);
+      if (cardgoestodifferentpile){
+        // wastepile.splice(-1,1);
+        diamonds.push(wastepile.splice(-1, 1)[0])
+        createFoundation();
+        console.log(diamonds); //diamonds
+        break;
+      }
       break;
     }
+    return cardgoestodifferentpile
 
-    if (cardgoestodifferentpile) {
-      return true;
-    } else {
-      return false;
-    }
   } else if (arrayname == "column1") {
     //if coming from column1
     console.log(arrayname);
@@ -698,26 +712,48 @@ function checkifcardgoesondifferentpile(arrayname) {
 }
 
 function checkClubs(cardbeingchecked) {
-  wastepile.splice(-1,1);
-  return true
+  // splicedCard = wastepile.splice(-1, 1);
+  // && cardbeingchecked.numvalue == 1+clubs[-1].numvalue
+  // && (cardbeingchecked.numvalue == 1+(clubs[clubs.length -1].numvalue))
+  if (cardbeingchecked.facevalue == "clubs" && clubs.length + 1 == cardbeingchecked.numvalue) {
+    return true;
+  } else {
+    return false;
+  }
+
 }
 function checkHearts(cardbeingchecked) {
-  wastepile.splice(-1,1);
-
-  return true
-
+  // splicedCard = wastepile.splice(-1, 1);
+  if(cardbeingchecked.facevalue == "hearts" && hearts.length + 1 == cardbeingchecked.numvalue) {
+    return true;
+  } else {
+    return false
+  }
+  console.log(splicedCard[0]);
+  console.log(splicedCard[0].facevalue == "hearts");
+  return true;
 }
 function checkSpades(cardbeingchecked) {
-  wastepile.splice(-1,1);
-
-  return true
-
+  // splicedCard = wastepile.splice(-1, 1);
+  if(cardbeingchecked.facevalue == "spades" && spades.length + 1 == cardbeingchecked.numvalue) {
+    return true;
+  } else {
+    return false
+  }
+  console.log(splicedCard[0]);
+  console.log(splicedCard[0].facevalue == "spades");
+  return true;
 }
 function checkDiamonds(cardbeingchecked) {
-  wastepile.splice(-1,1);
-
-  return true
-
+  // splicedCard = wastepile.splice(-1, 1);
+  if(cardbeingchecked.facevalue == "diamonds" && diamonds.length + 1 == cardbeingchecked.numvalue) {
+    return true;
+  } else {
+    return false
+  }
+  console.log(splicedCard[0]);
+  console.log(splicedCard[0].facevalue == "diamonds");
+  return true;
 }
 // function check1(cardbeingchecked) {
 //   if () {
