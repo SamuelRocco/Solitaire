@@ -21,7 +21,7 @@ const allArrays = [];
 
 function pageload() {
   allArrays.push(
-    wastepile,
+    // wastepile,
     suits.clubs,
     suits.hearts,
     suits.spades,
@@ -641,19 +641,14 @@ function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
   // console.log(cardsBeingMoved);
   // console.log(destinationPile);
   startIndex = originPile.indexOf(cardsBeingMoved[0]); // if its a king and there is an empty spot
-  // console.log(destinationPile);
+  console.log(Object.values(suits).includes(destinationPile));
+  console.log(destinationPile);
+
   if (
     cardsBeingMoved[0].numvalue == 13 &&
     destinationPile.length == 0 &&
-    suits.clubs.length == 12 &&
-    suits.hearts.length == 12 &&
-    suits.spades.length == 12 &&
-    suits.diamonds.length == 12
+    !Object.values(suits).includes(destinationPile)
   ) {
-    console.log(destinationPile == suits.spades);
-    console.log(destinationPile == suits.hearts);
-    console.log(destinationPile == suits.clubs);
-    console.log(destinationPile == suits.diamonds);
     destinationPile.push(originPile.splice(startIndex, originPile.length)[0]);
     return true;
   }
@@ -668,6 +663,7 @@ function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
       destinationPile[destinationPile.length - 1]?.color !=
         cardsBeingMoved[0].color
     ) {
+      console.log("hi");
       destinationPile.push(originPile.splice(-1, 1)[0]);
       return true;
     } else if (cardsBeingMoved[0].facevalue == "clubs") {
@@ -698,6 +694,7 @@ function checkifcardgoesondifferentpile(array, i) {
 
   for (var i = 0; i < rotatedArray.length; i++) {
     var destinationPile = rotatedArray[i];
+    console.log(destinationPile);
     cardgoestodifferentpile = checkingSystem(
       destinationPile,
       array,
@@ -868,9 +865,10 @@ class Card {
   }
   findcolor(card) {
     var n = card.match(/of_(.*?)\.png/);
+    console.log(n[1])
     if (
-      n[1] == "suits.hearts" ||
-      n[1] == "suits.diamonds" ||
+      n[1] == "hearts" ||
+      n[1] == "diamonds" ||
       n[1] == "hearts2" ||
       n[1] == "diamonds2"
     ) {
