@@ -642,11 +642,11 @@ function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
   // console.log(destinationPile);
   startIndex = originPile.indexOf(cardsBeingMoved[0]); // if its a king and there is an empty spot
   console.log(Object.values(suits).includes(destinationPile));
-  console.log(destinationPile);
 
   if (
     cardsBeingMoved[0].numvalue == 13 &&
-    destinationPile.length == 0 &&
+    destinationPile.length == 0 
+    &&
     !Object.values(suits).includes(destinationPile)
   ) {
     destinationPile.push(originPile.splice(startIndex, originPile.length)[0]);
@@ -686,9 +686,9 @@ function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
 
 function checkifcardgoesondifferentpile(array, i) {
   var cardgoestodifferentpile = false;
-
+  console.log(array);
   var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array)); // rotates the array of all the piles so that the specified pile is at index 0 and then deletes it
-  rotatedArray.splice(0, 1);
+  // rotatedArray.splice(0, 1); // idk if i need this or not*******
   var arrayOfCardsAfterIndex = array.slice(i, array.length); //these are the cards from a pile where a card was clicked, these are all the cards after that clicked card in an array
   console.log(arrayOfCardsAfterIndex);
 
@@ -706,9 +706,13 @@ function checkifcardgoesondifferentpile(array, i) {
         array[array.length - 1].faceup();
       }
       updatePiles();
+      // arrayOfCardsAfterIndex = []
+      // rotatedArray = []
       return cardgoestodifferentpile;
     }
   }
+  // arrayOfCardsAfterIndex = []
+  // rotatedArray = []
   return cardgoestodifferentpile;
   // if (array == wastepile) {
   //   var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array)); // rotates the array of all the piles so that the specified pile is at index 0 and then deletes it
@@ -865,7 +869,7 @@ class Card {
   }
   findcolor(card) {
     var n = card.match(/of_(.*?)\.png/);
-    console.log(n[1])
+    // console.log(n[1])
     if (
       n[1] == "hearts" ||
       n[1] == "diamonds" ||
