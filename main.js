@@ -4,35 +4,36 @@ var DECK = [];
 var shuffledDeck;
 var stockpile = [];
 var wastepile = [];
-let suits = {
+let foundation = {
   spades: [],
   hearts: [],
   diamonds: [],
-  clubs: []
+  clubs: [],
 };
-var column1 = [];
-var column2 = [];
-var column3 = [];
-var column4 = [];
-var column5 = [];
-var column6 = [];
-var column7 = [];
+let columns = {
+  column1: [],
+  column2: [],
+  column3: [],
+  column4: [],
+  column5: [],
+  column6: [],
+  column7: [],
+};
 const allArrays = [];
 
 function pageload() {
   allArrays.push(
-    // wastepile,
-    suits.clubs,
-    suits.hearts,
-    suits.spades,
-    suits.diamonds,
-    column1,
-    column2,
-    column3,
-    column4,
-    column5,
-    column6,
-    column7
+    foundation.clubs,
+    foundation.hearts,
+    foundation.spades,
+    foundation.diamonds,
+    columns.column1,
+    columns.column2,
+    columns.column3,
+    columns.column4,
+    columns.column5,
+    columns.column6,
+    columns.column7
   );
   cardfiles.push(
     "10_of_clubs.png",
@@ -98,13 +99,13 @@ function pageload() {
 
   dealCards();
   createStockAndWaste();
-  console.log(column1);
-  console.log(column2);
-  console.log(column3);
-  console.log(column4);
-  console.log(column5);
-  console.log(column6);
-  console.log(column7);
+  console.log(columns.column1);
+  console.log(columns.column2);
+  console.log(columns.column3);
+  console.log(columns.column4);
+  console.log(columns.column5);
+  console.log(columns.column6);
+  console.log(columns.column7);
   console.log(stockpile);
 }
 
@@ -119,69 +120,70 @@ function dealCards() {
     if (i == 0) {
       item = shuffledDeck.shift();
       item.faceup();
-      column1.push(item);
+      columns.column1.push(item);
     }
 
     if (i < 1) {
       item = shuffledDeck.shift();
       item.facedown();
       // item.faceup();
-      column2.push(item);
+      columns.column2.push(item);
     } else if (i == 1) {
       item = shuffledDeck.shift();
       item.faceup();
-      column2.push(item);
+      columns.column2.push(item);
     }
 
     if (i < 2) {
       item = shuffledDeck.shift();
       item.facedown();
       // item.faceup();
-      column3.push(item);
+      columns.column3.push(item);
     } else if (i == 2) {
       item = shuffledDeck.shift();
       item.faceup();
-      column3.push(item);
+      columns.column3.push(item);
     }
 
     if (i < 3) {
       item = shuffledDeck.shift();
       item.facedown();
-      column4.push(item);
+      columns.column4.push(item);
     } else if (i == 3) {
       item = shuffledDeck.shift();
       item.faceup();
-      column4.push(item);
+      columns.column4.push(item);
     }
 
     if (i < 4) {
       item = shuffledDeck.shift();
       item.facedown();
-      column5.push(item);
+      columns.column5.push(item);
     } else if (i == 4) {
       item = shuffledDeck.shift();
       item.faceup();
-      column5.push(item);
+      columns.column5.push(item);
     }
 
     if (i < 5) {
       item = shuffledDeck.shift();
-      item.facedown();
-      column6.push(item);
+      // item.facedown();
+      item.faceup();
+      columns.column6.push(item);
     } else if (i == 5) {
       item = shuffledDeck.shift();
       item.faceup();
-      column6.push(item);
+      columns.column6.push(item);
     }
 
     if (i < 6) {
       item = shuffledDeck.shift();
       item.facedown();
-      column7.push(item);
+      columns.column7.push(item);
     } else if (i == 6) {
       item = shuffledDeck.shift();
       item.faceup();
-      column7.push(item);
+      columns.column7.push(item);
     }
   }
 
@@ -281,9 +283,9 @@ function createStockAndWaste() {
 function dealCardColumnPiles() {
   //for column 1
   var c1 = document.getElementsByClassName("column1");
-  for (var a = 0; a < column1.length; a++) {
+  for (var a = 0; a < columns.column1.length; a++) {
     var col1butt = document.createElement("button");
-    var image = column1[a].image;
+    var image = columns.column1[a]?.image;
     var cardimage = document.createElement("img");
     cardimage.src = image;
     col1butt.appendChild(cardimage);
@@ -291,19 +293,19 @@ function dealCardColumnPiles() {
     c1[0].appendChild(col1butt);
 
     //column1button***********************************************************************************************************************/
-    if (column1[a].orientation() == "facingup") {
+    if (columns.column1[a]?.orientation() == "facingup") {
       col1butt.addEventListener(
         "click",
         function () {
           var cardClickedIndex = this.classList[1][1] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
-            column1,
+            columns.column1,
             cardClickedIndex
           );
           if (cardmoved) {
             c1[0].textContent = "";
             dealCardColumnPiles();
-            console.log(column1);
+            // console.log(columns.column1);
           }
         },
         false
@@ -315,9 +317,9 @@ function dealCardColumnPiles() {
 
   //for column 2
   var c2 = document.getElementsByClassName("column2");
-  for (var b = 0; b < column2.length; b++) {
+  for (var b = 0; b < columns.column2.length; b++) {
     var col2butt = document.createElement("button");
-    var image2 = column2[b].image;
+    var image2 = columns.column2[b]?.image;
     var cardimage2 = document.createElement("img");
     cardimage2.src = image2;
     col2butt.appendChild(cardimage2);
@@ -326,19 +328,19 @@ function dealCardColumnPiles() {
 
     //column2button***********************************************************************************************************************/
 
-    if (column2[b].orientation() == "facingup") {
+    if (columns.column2[b]?.orientation() == "facingup") {
       col2butt.addEventListener(
         "click",
         function () {
           var cardClickedIndex = this.classList[1][1] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
-            column2,
+            columns.column2,
             cardClickedIndex
           );
           if (cardmoved) {
             c2[0].textContent = "";
             dealCardColumnPiles();
-            console.log(column2);
+            // console.log(columns.column2);
           }
         },
         false
@@ -350,9 +352,9 @@ function dealCardColumnPiles() {
 
   //for column 3
   var c3 = document.getElementsByClassName("column3");
-  for (var c = 0; c < column3.length; c++) {
+  for (var c = 0; c < columns.column3.length; c++) {
     var col3butt = document.createElement("button");
-    var image3 = column3[c].image;
+    var image3 = columns.column3[c]?.image;
     var cardimage3 = document.createElement("img");
     cardimage3.src = image3;
     col3butt.appendChild(cardimage3);
@@ -360,19 +362,19 @@ function dealCardColumnPiles() {
     c3[0].appendChild(col3butt);
 
     //column3button***********************************************************************************************************************/
-    if (column3[c].orientation() == "facingup") {
+    if (columns.column3[c]?.orientation() == "facingup") {
       col3butt.addEventListener(
         "click",
         function () {
           var cardClickedIndex = this.classList[1][1] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
-            column3,
+            columns.column3,
             cardClickedIndex
           );
           if (cardmoved) {
             c3[0].textContent = "";
             dealCardColumnPiles();
-            console.log(column3);
+            // console.log(column3);
           }
         },
         false
@@ -384,29 +386,29 @@ function dealCardColumnPiles() {
 
   //for column 3
   var c4 = document.getElementsByClassName("column4");
-  for (var d = 0; d < column4.length; d++) {
+  for (var d = 0; d < columns.column4.length; d++) {
     var col4butt = document.createElement("button");
-    var image4 = column4[d].image;
+    var image4 = columns.column4[d]?.image;
     var cardimage4 = document.createElement("img");
     cardimage4.src = image4;
     col4butt.appendChild(cardimage4);
     col4butt.className += "c4 r" + (d + 1).toString();
     c4[0].appendChild(col4butt);
 
-    //column4button***********************************************************************************************************************/
-    if (column4[d].orientation() == "facingup") {
+    //columns.column4button***********************************************************************************************************************/
+    if (columns.column4[d]?.orientation() == "facingup") {
       col4butt.addEventListener(
         "click",
         function () {
           var cardClickedIndex = this.classList[1][1] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
-            column4,
+            columns.column4,
             cardClickedIndex
           );
           if (cardmoved) {
             c4[0].textContent = "";
             dealCardColumnPiles();
-            console.log(column4);
+            // console.log(columns.column4);
           }
         },
         false
@@ -418,29 +420,29 @@ function dealCardColumnPiles() {
 
   //for column 3
   var c5 = document.getElementsByClassName("column5");
-  for (var e = 0; e < column5.length; e++) {
+  for (var e = 0; e < columns.column5.length; e++) {
     var col5butt = document.createElement("button");
-    var image5 = column5[e].image;
+    var image5 = columns.column5[e]?.image;
     var cardimage5 = document.createElement("img");
     cardimage5.src = image5;
     col5butt.appendChild(cardimage5);
     col5butt.className += "c5 r" + (e + 1).toString();
     c5[0].appendChild(col5butt);
 
-    //column5button***********************************************************************************************************************/
-    if (column5[e].orientation() == "facingup") {
+    //columns.column5button***********************************************************************************************************************/
+    if (columns.column5[e]?.orientation() == "facingup") {
       col5butt.addEventListener(
         "click",
         function () {
           var cardClickedIndex = this.classList[1][1] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
-            column5,
+            columns.column5,
             cardClickedIndex
           );
           if (cardmoved) {
             c5[0].textContent = "";
             dealCardColumnPiles();
-            console.log(column5);
+            // console.log(columns.column5);
           }
         },
         false
@@ -452,29 +454,29 @@ function dealCardColumnPiles() {
 
   //for column 3
   var c6 = document.getElementsByClassName("column6");
-  for (var f = 0; f < column6.length; f++) {
+  for (var f = 0; f < columns.column6.length; f++) {
     var col6butt = document.createElement("button");
-    var image6 = column6[f].image;
+    var image6 = columns.column6[f]?.image;
     var cardimage6 = document.createElement("img");
     cardimage6.src = image6;
     col6butt.appendChild(cardimage6);
     col6butt.className += "c6 r" + (f + 1).toString();
     c6[0].appendChild(col6butt);
 
-    //column6button***********************************************************************************************************************/
-    if (column6[f].orientation() == "facingup") {
+    //columns.column6button***********************************************************************************************************************/
+    if (columns.column6[f]?.orientation() == "facingup") {
       col6butt.addEventListener(
         "click",
         function () {
           var cardClickedIndex = this.classList[1][1] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
-            column6,
+            columns.column6,
             cardClickedIndex
           );
           if (cardmoved) {
             c6[0].textContent = "";
             dealCardColumnPiles();
-            console.log(column6);
+            // console.log(columns.column6);
           }
         },
         false
@@ -486,29 +488,29 @@ function dealCardColumnPiles() {
 
   //for column 3
   var c7 = document.getElementsByClassName("column7");
-  for (var g = 0; g < column7.length; g++) {
+  for (var g = 0; g < columns.column7.length; g++) {
     var col7butt = document.createElement("button");
-    var image7 = column7[g].image;
+    var image7 = columns.column7[g]?.image;
     var cardimage7 = document.createElement("img");
     cardimage7.src = image7;
     col7butt.appendChild(cardimage7);
     col7butt.className += "c7 r" + (g + 1).toString();
     c7[0].appendChild(col7butt);
 
-    //column7button***********************************************************************************************************************/
-    if (column7[g].orientation() == "facingup") {
+    //columns.column7button***********************************************************************************************************************/
+    if (columns.column7[g]?.orientation() == "facingup") {
       col7butt.addEventListener(
         "click",
         function () {
           var cardClickedIndex = this.classList[1][1] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
-            column7,
+            columns.column7,
             cardClickedIndex
           );
           if (cardmoved) {
             c7[0].textContent = "";
             dealCardColumnPiles();
-            console.log(column7);
+            // console.log(columns.column7);
           }
         },
         false
@@ -520,12 +522,12 @@ function dealCardColumnPiles() {
 }
 
 function createFoundation() {
-  //suits.clubs
-  if (suits.clubs.length != 0) {
+  //foundation.clubs
+  if (foundation.clubs.length != 0) {
     var club = document.getElementsByClassName("clubs");
     var clubspilebutton = document.createElement("button");
     clubspilebutton.className += "clubscard";
-    var clubsimage = suits.clubs[suits.clubs.length - 1].image;
+    var clubsimage = foundation.clubs[foundation.clubs.length - 1].image;
     // var clubsimage = "images/card_background/cardBackground.png";
     var clubsbuttonimage = document.createElement("img");
     clubsbuttonimage.src = clubsimage;
@@ -535,23 +537,23 @@ function createFoundation() {
     clubspilebutton.addEventListener(
       "click",
       function () {
-        var cardmoved = checkifcardgoesondifferentpile(suits.clubs, -1);
+        var cardmoved = checkifcardgoesondifferentpile(foundation.clubs, -1);
         if (cardmoved) {
           club[0].textContent = "";
           createFoundation();
-          console.log(suits.clubs);
+          console.log(foundation.clubs);
         }
       },
       false
     );
   }
 
-  //suits.hearts
-  if (suits.hearts.length != 0) {
+  //foundation.hearts
+  if (foundation.hearts.length != 0) {
     var heart = document.getElementsByClassName("hearts");
     var heartspilebutton = document.createElement("button");
     heartspilebutton.className += "heartscard";
-    var heartsimage = suits.hearts[suits.hearts.length - 1].image;
+    var heartsimage = foundation.hearts[foundation.hearts.length - 1].image;
     // var heartsimage = "images/card_background/cardBackground.png";
     var heartsbuttonimage = document.createElement("img");
     heartsbuttonimage.src = heartsimage;
@@ -561,23 +563,23 @@ function createFoundation() {
     heartspilebutton.addEventListener(
       "click",
       function () {
-        var cardmoved = checkifcardgoesondifferentpile(suits.hearts, -1);
+        var cardmoved = checkifcardgoesondifferentpile(foundation.hearts, -1);
         if (cardmoved) {
           heart[0].textContent = "";
           createFoundation();
-          console.log(suits.hearts);
+          console.log(foundation.hearts);
         }
       },
       false
     );
   }
 
-  //suits.spades
-  if (suits.spades.length != 0) {
+  //foundation.spades
+  if (foundation.spades.length != 0) {
     var spade = document.getElementsByClassName("spades");
     var spadespilebutton = document.createElement("button");
     spadespilebutton.className += "spadescard";
-    var spadesimage = suits.spades[suits.spades.length - 1].image;
+    var spadesimage = foundation.spades[foundation.spades.length - 1].image;
     // var spadesimage = "images/card_background/cardBackground.png";
     var spadesbuttonimage = document.createElement("img");
     spadesbuttonimage.src = spadesimage;
@@ -587,23 +589,24 @@ function createFoundation() {
     spadespilebutton.addEventListener(
       "click",
       function () {
-        var cardmoved = checkifcardgoesondifferentpile(suits.spades, -1);
+        var cardmoved = checkifcardgoesondifferentpile(foundation.spades, -1);
         if (cardmoved) {
           spade[0].textContent = "";
           createFoundation();
-          console.log(suits.spades);
+          console.log(foundation.spades);
         }
       },
       false
     );
   }
 
-  //suits.diamonds
-  if (suits.diamonds.length != 0) {
+  //foundation.diamonds
+  if (foundation.diamonds.length != 0) {
     var diamond = document.getElementsByClassName("diamonds");
     var diamondspilebutton = document.createElement("button");
     diamondspilebutton.className += "diamondscard";
-    var diamondsimage = suits.diamonds[suits.diamonds.length - 1].image;
+    var diamondsimage =
+      foundation.diamonds[foundation.diamonds.length - 1].image;
     // var diamondsimage = "images/card_background/cardBackground.png";
     var diamondsbuttonimage = document.createElement("img");
     diamondsbuttonimage.src = diamondsimage;
@@ -613,11 +616,11 @@ function createFoundation() {
     diamondspilebutton.addEventListener(
       "click",
       function () {
-        var cardmoved = checkifcardgoesondifferentpile(suits.diamonds, -1);
+        var cardmoved = checkifcardgoesondifferentpile(foundation.diamonds, -1);
         if (cardmoved) {
           diamond[0].textContent = "";
           createFoundation();
-          console.log(suits.diamonds);
+          console.log(foundation.diamonds);
         }
       },
       false
@@ -636,197 +639,131 @@ function rotateToIndex(arr, index) {
 
   return part1.concat(part2);
 }
+function getKeyFromArray(obj, val) {
+  return Object.keys(obj).find((key) => obj[key] === val);
+}
 
 function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
-  // console.log(cardsBeingMoved);
-  // console.log(destinationPile);
   startIndex = originPile.indexOf(cardsBeingMoved[0]); // if its a king and there is an empty spot
-  console.log(Object.values(suits).includes(destinationPile));
 
-  if (
-    cardsBeingMoved[0].numvalue == 13 &&
-    destinationPile.length == 0 
-    &&
-    !Object.values(suits).includes(destinationPile)
-  ) {
-    destinationPile.push(originPile.splice(startIndex, originPile.length)[0]);
-    return true;
+  if (getKeyFromArray(foundation, originPile) !== undefined) {
+    var nameOfOriginPile = getKeyFromArray(foundation, originPile);
+  } else if (getKeyFromArray(columns, originPile) !== undefined) {
+    var nameOfOriginPile = getKeyFromArray(foundation, originPile);
   }
+  console.log(nameOfOriginPile);
+  // if (getKeyFromArray(foundation, destinationPile) !== undefined) {
+  //   var nameOfDestinationPile = getKeyFromArray(foundation, destinationPile);
+  // } else if (getKeyFromArray(columns, destinationPile) !== undefined) {
+  //   var nameOfDestinationPile = getKeyFromArray(foundation, destinationPile);
+  // }
 
-  if (cardsBeingMoved.length == 1 && cardsBeingMoved[0].numvalue == 1) {
-    // if its the only card, and if its an ace
-    // console.log(destinationPile[destinationPile.length - 1].numvalue == 2);
-    console.log(cardsBeingMoved[0].facevalue);
-    console.log(destinationPile);
-    if (
-      destinationPile[destinationPile.length - 1]?.numvalue == 2 &&
-      destinationPile[destinationPile.length - 1]?.color !=
-        cardsBeingMoved[0].color
-    ) {
-      console.log("hi");
-      destinationPile.push(originPile.splice(-1, 1)[0]);
-      return true;
-    } else if (cardsBeingMoved[0].facevalue == "clubs") {
-      suits.clubs.push(originPile.splice(-1, 1)[0]);
-      return true;
-    } else if (cardsBeingMoved[0].facevalue == "hearts") {
-      suits.hearts.push(originPile.splice(-1, 1)[0]);
-      return true;
-    } else if (cardsBeingMoved[0].facevalue == "spades") {
-      suits.spades.push(originPile.splice(-1, 1)[0]);
-      return true;
-    } else if (cardsBeingMoved[0].facevalue == "diamonds") {
-      suits.diamonds.push(originPile.splice(-1, 1)[0]);
-      return true;
-    }
-  }
+  // console.log(nameOfDestinationPile);
+  // if (
+  //   cardsBeingMoved[0]?.numvalue == 13 &&
+  //   destinationPile.length == 0 &&
+  //   !Object.values(foundation).includes(destinationPile)
+  // ) {
+  //   destinationPile.push(originPile.splice(startIndex, originPile.length)[0]);
+  //   return true;
+  // }
+
+  // if (cardsBeingMoved.length == 1 && cardsBeingMoved[0].numvalue == 1) {
+  //   // if its the only card, and if its an ace
+  //   if (
+  //     destinationPile[destinationPile.length - 1]?.numvalue == 2 &&
+  //     destinationPile[destinationPile.length - 1]?.color !=
+  //       cardsBeingMoved[0].color
+  //   ) {
+  //     console.log("hi");
+  //     destinationPile.push(originPile.splice(-1, 1)[0]);
+  //     return true;
+  //   } else if (cardsBeingMoved[0].facevalue == "clubs") {
+  //     foundation.clubs.push(originPile.splice(-1, 1)[0]);
+  //     return true;
+  //   } else if (cardsBeingMoved[0].facevalue == "hearts") {
+  //     foundation.hearts.push(originPile.splice(-1, 1)[0]);
+  //     return true;
+  //   } else if (cardsBeingMoved[0].facevalue == "spades") {
+  //     foundation.spades.push(originPile.splice(-1, 1)[0]);
+  //     return true;
+  //   } else if (cardsBeingMoved[0].facevalue == "diamonds") {
+  //     foundation.diamonds.push(originPile.splice(-1, 1)[0]);
+  //     return true;
+  //   }
+  // }
+
+  // if (
+  //   1 + parseInt(cardsBeingMoved[0].numvalue) ==
+  //   destinationPile[destinationPile.length - 1]?.numvalue
+  // ) {
+  //   console.log("trying to move");
+  //   console.log(destinationPile);
+  //   console.log(
+  //     destinationPile.push(
+  //       originPile.splice(
+  //         originPile.indexOf(cardsBeingMoved[0]),
+  //         destinationPile.length - 1 - originPile.indexOf(cardsBeingMoved[0])
+  //       )[0]
+  //     )
+  //   ); // do the same with the king if statement
+  //   console.log("did it work?");
+  //   return true;
+  // }
 
   return false;
 }
 
 function checkifcardgoesondifferentpile(array, i) {
-  var cardgoestodifferentpile = false;
-  console.log(array);
-  var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array)); // rotates the array of all the piles so that the specified pile is at index 0 and then deletes it
-  // rotatedArray.splice(0, 1); // idk if i need this or not*******
-  var arrayOfCardsAfterIndex = array.slice(i, array.length); //these are the cards from a pile where a card was clicked, these are all the cards after that clicked card in an array
-  console.log(arrayOfCardsAfterIndex);
+  var chunkOfCards = array.slice(i, array.length);
+  var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array));
+  // console.log(rotatedArray);
 
-  for (var i = 0; i < rotatedArray.length; i++) {
-    var destinationPile = rotatedArray[i];
-    console.log(destinationPile);
-    cardgoestodifferentpile = checkingSystem(
-      destinationPile,
+  for (var z = 0; z < rotatedArray.length; z++) {
+    var cardGoesToDifferentPile = checkingSystem(
+      rotatedArray[z],
       array,
-      arrayOfCardsAfterIndex
+      chunkOfCards
     );
-    if (cardgoestodifferentpile) {
-      if (array.length >= 1) {
-        console.log("hello");
-        array[array.length - 1].faceup();
-      }
-      updatePiles();
-      // arrayOfCardsAfterIndex = []
-      // rotatedArray = []
-      return cardgoestodifferentpile;
-    }
   }
-  // arrayOfCardsAfterIndex = []
-  // rotatedArray = []
-  return cardgoestodifferentpile;
-  // if (array == wastepile) {
-  //   var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array)); // rotates the array of all the piles so that the specified pile is at index 0 and then deletes it
-  //   rotatedArray.splice(0, 1);
-  //   var arrayOfCardsAfterIndex = array.slice(i, array.length); //these are the cards from a pile where a card was clicked, these are all the cards after that clicked card in an array
-  //   console.log(arrayOfCardsAfterIndex);
 
-  //   for (var i = 0; i < rotatedArray.length; i++) {
-  //     var destinationPile = rotatedArray[i];
-  //     cardgoestodifferentpile = checkingSystem(
-  //       destinationPile,
-  //       array,
-  //       arrayOfCardsAfterIndex
-  //     );
-  //     if (cardgoestodifferentpile) {
-  //       updatePiles();
-  //       return cardgoestodifferentpile;
-  //     }
-  //   }
-  //   return cardgoestodifferentpile;
-
-  // } else if (array == column1) {
-  //   //if coming from column1
-  //   console.log(array);
-  //   column1.splice(-1, 1);
-  //   if (column1.length >= 1) {
-  //     column1[column1.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == column2) {
-  //   //if coming from column2
-  //   console.log(array);
-  //   column2.splice(-1, 1);
-  //   if (column2.length >= 1) {
-  //     column2[column2.length - 1].faceup();
-  //   }
-  //   // console.log(column2[0]);
-  //   return true;
-  // } else if (array == column3) {
-  //   //if coming from column3
-  //   console.log(array);
-  //   column3.splice(-1, 1);
-  //   if (column3.length >= 1) {
-  //     column3[column3.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == column4) {
-  //   //if coming from column4
-  //   console.log(array);
-  //   column4.splice(-1, 1);
-  //   if (column4.length >= 1) {
-  //     column4[column4.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == column5) {
-  //   //if coming from column5
-  //   console.log(array);
-  //   column5.splice(-1, 1);
-  //   if (column5.length >= 1) {
-  //     column5[column5.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == column6) {
-  //   //if coming from column6
-  //   console.log(array);
-  //   column6.splice(-1, 1);
-  //   if (column6.length >= 1) {
-  //     column6[column6.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == column7) {
-  //   //if coming from column7
-  //   console.log(array);
-  //   column7.splice(-1, 1);
-  //   if (column7.length >= 1) {
-  //     column7[column7.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == suits.clubs) {
-  //   //if coming from column7
-  //   console.log(array);
-  //   suits.clubs.splice(-1, 1);
-  //   if (suits.clubs.length >= 1) {
-  //     suits.clubs[suits.clubs.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == suits.hearts) {
-  //   //if coming from column7
-  //   console.log(array);
-  //   suits.hearts.splice(-1, 1);
-  //   if (suits.hearts.length >= 1) {
-  //     suits.hearts[suits.hearts.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == suits.spades) {
-  //   //if coming from column7
-  //   console.log(array);
-  //   suits.spades.splice(-1, 1);
-  //   if (suits.spades.length >= 1) {
-  //     suits.spades[suits.spades.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else if (array == suits.diamonds) {
-  //   //if coming from column7
-  //   console.log(array);
-  //   suits.diamonds.splice(-1, 1);
-  //   if (suits.diamonds.length >= 1) {
-  //     suits.diamonds[suits.diamonds.length - 1].faceup();
-  //   }
-  //   return true;
-  // } else {
-  //   return false;
+  // // This returns the name of the array:
+  // if (getKeyFromArray(foundation, array) !== undefined) {
+  //   console.log(getKeyFromArray(foundation, array));
+  // } else if (getKeyFromArray(columns, array) !== undefined) {
+  //   console.log(getKeyFromArray(columns, array));
   // }
 }
+
+// function checkifcardgoesondifferentpile(array, i) {
+//   var cardgoestodifferentpile = false;
+//   // console.log(array);
+//   var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array)); // rotates the array of all the piles so that the specified pile is at index 0 and then deletes it
+//   // rotatedArray.splice(0, 1); // idk if i need this or not******* i think this gets rid of the wastepile so that it isnt a destination but idk
+//   var arrayOfCardsAfterIndex = array.slice(i, array.length); //these are the cards from a pile where a card was clicked, these are all the cards after that clicked card in an array
+//   // console.log(arrayOfCardsAfterIndex);
+
+//   for (var i = 0; i < rotatedArray.length; i++) {
+//     var destinationPile = rotatedArray[i];
+//     // console.log(destinationPile);
+//     cardgoestodifferentpile = checkingSystem(
+//       destinationPile,
+//       array,
+//       arrayOfCardsAfterIndex
+//     );
+//     if (cardgoestodifferentpile) {
+//       if (array.length >= 1) {
+//         // console.log("hello");
+//         array[array.length - 1].faceup();
+//       }
+//       updatePiles();
+//       // arrayOfCardsAfterIndex = []
+//       // rotatedArray = []
+//       return cardgoestodifferentpile;
+//     }
+//   }
+//   return cardgoestodifferentpile;
+// }
 
 //************************************************************************************* */
 
