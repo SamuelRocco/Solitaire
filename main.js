@@ -649,16 +649,15 @@ function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
   if (getKeyFromArray(foundation, originPile) !== undefined) {
     var nameOfOriginPile = getKeyFromArray(foundation, originPile);
   } else if (getKeyFromArray(columns, originPile) !== undefined) {
-    var nameOfOriginPile = getKeyFromArray(foundation, originPile);
+    var nameOfOriginPile = getKeyFromArray(columns, originPile);
+  }
+  if (getKeyFromArray(foundation, destinationPile) !== undefined) {
+    var nameOfDestinationPile = getKeyFromArray(foundation, destinationPile);
+  } else if (getKeyFromArray(columns, destinationPile) !== undefined) {
+    var nameOfDestinationPile = getKeyFromArray(columns, destinationPile);
   }
   console.log(nameOfOriginPile);
-  // if (getKeyFromArray(foundation, destinationPile) !== undefined) {
-  //   var nameOfDestinationPile = getKeyFromArray(foundation, destinationPile);
-  // } else if (getKeyFromArray(columns, destinationPile) !== undefined) {
-  //   var nameOfDestinationPile = getKeyFromArray(foundation, destinationPile);
-  // }
-
-  // console.log(nameOfDestinationPile);
+  console.log(nameOfDestinationPile);
   // if (
   //   cardsBeingMoved[0]?.numvalue == 13 &&
   //   destinationPile.length == 0 &&
