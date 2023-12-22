@@ -99,14 +99,14 @@ function pageload() {
 
   dealCards();
   createStockAndWaste();
-  console.log(columns.column1);
-  console.log(columns.column2);
-  console.log(columns.column3);
-  console.log(columns.column4);
-  console.log(columns.column5);
-  console.log(columns.column6);
-  console.log(columns.column7);
-  console.log(stockpile);
+  // console.log(columns.column1);
+  // console.log(columns.column2);
+  // console.log(columns.column3);
+  // console.log(columns.column4);
+  // console.log(columns.column5);
+  // console.log(columns.column6);
+  // console.log(columns.column7);
+  // console.log(stockpile);
 }
 
 function updatePiles() {
@@ -167,8 +167,8 @@ function dealCards() {
 
     if (i < 5) {
       item = shuffledDeck.shift();
-      // item.facedown();
-      item.faceup();
+      item.facedown();
+      // item.faceup();
       columns.column6.push(item);
     } else if (i == 5) {
       item = shuffledDeck.shift();
@@ -297,7 +297,8 @@ function dealCardColumnPiles() {
       col1butt.addEventListener(
         "click",
         function () {
-          var cardClickedIndex = this.classList[1][1] - 1;
+          var numbersOnly = this.classList[1].match(/\d+/g);
+          var cardClickedIndex = numbersOnly[0] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
             columns.column1,
             cardClickedIndex
@@ -332,7 +333,8 @@ function dealCardColumnPiles() {
       col2butt.addEventListener(
         "click",
         function () {
-          var cardClickedIndex = this.classList[1][1] - 1;
+          var numbersOnly = this.classList[1].match(/\d+/g);
+          var cardClickedIndex = numbersOnly[0] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
             columns.column2,
             cardClickedIndex
@@ -366,7 +368,8 @@ function dealCardColumnPiles() {
       col3butt.addEventListener(
         "click",
         function () {
-          var cardClickedIndex = this.classList[1][1] - 1;
+          var numbersOnly = this.classList[1].match(/\d+/g);
+          var cardClickedIndex = numbersOnly[0] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
             columns.column3,
             cardClickedIndex
@@ -400,7 +403,8 @@ function dealCardColumnPiles() {
       col4butt.addEventListener(
         "click",
         function () {
-          var cardClickedIndex = this.classList[1][1] - 1;
+          var numbersOnly = this.classList[1].match(/\d+/g);
+          var cardClickedIndex = numbersOnly[0] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
             columns.column4,
             cardClickedIndex
@@ -434,7 +438,8 @@ function dealCardColumnPiles() {
       col5butt.addEventListener(
         "click",
         function () {
-          var cardClickedIndex = this.classList[1][1] - 1;
+          var numbersOnly = this.classList[1].match(/\d+/g);
+          var cardClickedIndex = numbersOnly[0] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
             columns.column5,
             cardClickedIndex
@@ -468,7 +473,8 @@ function dealCardColumnPiles() {
       col6butt.addEventListener(
         "click",
         function () {
-          var cardClickedIndex = this.classList[1][1] - 1;
+          var numbersOnly = this.classList[1].match(/\d+/g);
+          var cardClickedIndex = numbersOnly[0] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
             columns.column6,
             cardClickedIndex
@@ -502,7 +508,8 @@ function dealCardColumnPiles() {
       col7butt.addEventListener(
         "click",
         function () {
-          var cardClickedIndex = this.classList[1][1] - 1;
+          var numbersOnly = this.classList[1].match(/\d+/g);
+          var cardClickedIndex = numbersOnly[0] - 1;
           var cardmoved = checkifcardgoesondifferentpile(
             columns.column7,
             cardClickedIndex
@@ -541,7 +548,7 @@ function createFoundation() {
         if (cardmoved) {
           club[0].textContent = "";
           createFoundation();
-          console.log(foundation.clubs);
+          // console.log(foundation.clubs);
         }
       },
       false
@@ -567,7 +574,7 @@ function createFoundation() {
         if (cardmoved) {
           heart[0].textContent = "";
           createFoundation();
-          console.log(foundation.hearts);
+          // console.log(foundation.hearts);
         }
       },
       false
@@ -593,7 +600,7 @@ function createFoundation() {
         if (cardmoved) {
           spade[0].textContent = "";
           createFoundation();
-          console.log(foundation.spades);
+          // console.log(foundation.spades);
         }
       },
       false
@@ -620,7 +627,7 @@ function createFoundation() {
         if (cardmoved) {
           diamond[0].textContent = "";
           createFoundation();
-          console.log(foundation.diamonds);
+          // console.log(foundation.diamonds);
         }
       },
       false
@@ -628,8 +635,8 @@ function createFoundation() {
   }
 }
 
-//**************************************************************************************/
 function rotateToIndex(arr, index) {
+  // ex. (foundation, originPile)
   if (index < 0 || index >= arr.length) {
     return arr; // Return the original array if the index is out of bounds
   }
@@ -643,138 +650,111 @@ function getKeyFromArray(obj, val) {
   return Object.keys(obj).find((key) => obj[key] === val);
 }
 
+//**************************************************************************************/
+
 function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
   startIndex = originPile.indexOf(cardsBeingMoved[0]); // if its a king and there is an empty spot
+  var nameOfOriginPile;
+  var nameOfDestinationPile;
+  var inFoundation;
+  var inColumns;
 
   if (getKeyFromArray(foundation, originPile) !== undefined) {
-    var nameOfOriginPile = getKeyFromArray(foundation, originPile);
+    nameOfOriginPile = getKeyFromArray(foundation, originPile);
   } else if (getKeyFromArray(columns, originPile) !== undefined) {
-    var nameOfOriginPile = getKeyFromArray(columns, originPile);
+    nameOfOriginPile = getKeyFromArray(columns, originPile);
   }
   if (getKeyFromArray(foundation, destinationPile) !== undefined) {
-    var nameOfDestinationPile = getKeyFromArray(foundation, destinationPile);
+    nameOfDestinationPile = getKeyFromArray(foundation, destinationPile);
+    inFoundation = true;
+    inColumns = false;
   } else if (getKeyFromArray(columns, destinationPile) !== undefined) {
-    var nameOfDestinationPile = getKeyFromArray(columns, destinationPile);
+    nameOfDestinationPile = getKeyFromArray(columns, destinationPile);
+    inFoundation = false;
+    inColumns = true;
   }
-  console.log(nameOfOriginPile);
-  console.log(nameOfDestinationPile);
-  // if (
-  //   cardsBeingMoved[0]?.numvalue == 13 &&
-  //   destinationPile.length == 0 &&
-  //   !Object.values(foundation).includes(destinationPile)
-  // ) {
-  //   destinationPile.push(originPile.splice(startIndex, originPile.length)[0]);
-  //   return true;
-  // }
 
-  // if (cardsBeingMoved.length == 1 && cardsBeingMoved[0].numvalue == 1) {
-  //   // if its the only card, and if its an ace
-  //   if (
-  //     destinationPile[destinationPile.length - 1]?.numvalue == 2 &&
-  //     destinationPile[destinationPile.length - 1]?.color !=
-  //       cardsBeingMoved[0].color
-  //   ) {
-  //     console.log("hi");
-  //     destinationPile.push(originPile.splice(-1, 1)[0]);
-  //     return true;
-  //   } else if (cardsBeingMoved[0].facevalue == "clubs") {
-  //     foundation.clubs.push(originPile.splice(-1, 1)[0]);
-  //     return true;
-  //   } else if (cardsBeingMoved[0].facevalue == "hearts") {
-  //     foundation.hearts.push(originPile.splice(-1, 1)[0]);
-  //     return true;
-  //   } else if (cardsBeingMoved[0].facevalue == "spades") {
-  //     foundation.spades.push(originPile.splice(-1, 1)[0]);
-  //     return true;
-  //   } else if (cardsBeingMoved[0].facevalue == "diamonds") {
-  //     foundation.diamonds.push(originPile.splice(-1, 1)[0]);
-  //     return true;
-  //   }
-  // }
-
-  // if (
-  //   1 + parseInt(cardsBeingMoved[0].numvalue) ==
-  //   destinationPile[destinationPile.length - 1]?.numvalue
-  // ) {
-  //   console.log("trying to move");
-  //   console.log(destinationPile);
-  //   console.log(
-  //     destinationPile.push(
-  //       originPile.splice(
-  //         originPile.indexOf(cardsBeingMoved[0]),
-  //         destinationPile.length - 1 - originPile.indexOf(cardsBeingMoved[0])
-  //       )[0]
-  //     )
-  //   ); // do the same with the king if statement
-  //   console.log("did it work?");
-  //   return true;
-  // }
+  if (inColumns) {
+    if (
+      (cardsBeingMoved[0].numvalue ==
+        parseInt(destinationPile[destinationPile.length - 1]?.numvalue) - 1 &&
+        destinationPile[destinationPile.length - 1]?.color !=
+          cardsBeingMoved[0].color) ||
+      (destinationPile.length == 0 && cardsBeingMoved[0].numvalue == 13)
+    ) {
+      // add in the color properties
+      // console.log(cardsBeingMoved);
+      columns[nameOfDestinationPile].push(...cardsBeingMoved);
+      cardsBeingMoved.forEach((card) => {
+        let index = originPile.indexOf(card);
+        if (index !== -1) {
+          originPile.splice(index, 1);
+        }
+      });
+      return true;
+    }
+  } else if (inFoundation) {
+    if (
+      (cardsBeingMoved[0].numvalue ==
+        parseInt(destinationPile[destinationPile.length - 1]?.numvalue) + 1 &&
+        cardsBeingMoved[0].facevalue ==
+          destinationPile[destinationPile.length - 1].facevalue) ||
+      (cardsBeingMoved[0].numvalue == 1 &&
+        destinationPile.length == 0 &&
+        cardsBeingMoved.length == 1 &&
+        cardsBeingMoved[cardsBeingMoved.length - 1].facevalue ==
+          nameOfDestinationPile)
+    ) {
+      // add in the color properties and other problems
+      console.log(cardsBeingMoved);
+      foundation[nameOfDestinationPile].push(...cardsBeingMoved);
+      cardsBeingMoved.forEach((card) => {
+        let index = originPile.indexOf(card);
+        if (index !== -1) {
+          originPile.splice(index, 1);
+        }
+      });
+      return true;
+    }
+  }
 
   return false;
 }
 
 function checkifcardgoesondifferentpile(array, i) {
-  var chunkOfCards = array.slice(i, array.length);
-  var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array));
-  // console.log(rotatedArray);
+  var chunkOfCards = array.slice(i, array.length); // from index to the top of the stack of the origin pile
+  var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array)); // rotates the array of all arrays so that the array its currently on is at index 0
+  // console.log(chunkOfCards);
 
   for (var z = 0; z < rotatedArray.length; z++) {
+    // loops through the rotated array of arrays
     var cardGoesToDifferentPile = checkingSystem(
+      // checks each array to see of the chunk of cards can go on it
       rotatedArray[z],
       array,
       chunkOfCards
     );
+
+    if (cardGoesToDifferentPile) {
+      // if the card can go on it, then flip the card below it (idk)
+      if (array.length >= 1) {
+        // im not too sure if this is needed?
+        // console.log("hello");
+        array[array.length - 1].faceup();
+      }
+      updatePiles();
+      // arrayOfCardsAfterIndex = []
+      // rotatedArray = []
+      return cardGoesToDifferentPile;
+    }
   }
-
-  // // This returns the name of the array:
-  // if (getKeyFromArray(foundation, array) !== undefined) {
-  //   console.log(getKeyFromArray(foundation, array));
-  // } else if (getKeyFromArray(columns, array) !== undefined) {
-  //   console.log(getKeyFromArray(columns, array));
-  // }
+  return cardGoesToDifferentPile;
 }
-
-// function checkifcardgoesondifferentpile(array, i) {
-//   var cardgoestodifferentpile = false;
-//   // console.log(array);
-//   var rotatedArray = rotateToIndex(allArrays, allArrays.indexOf(array)); // rotates the array of all the piles so that the specified pile is at index 0 and then deletes it
-//   // rotatedArray.splice(0, 1); // idk if i need this or not******* i think this gets rid of the wastepile so that it isnt a destination but idk
-//   var arrayOfCardsAfterIndex = array.slice(i, array.length); //these are the cards from a pile where a card was clicked, these are all the cards after that clicked card in an array
-//   // console.log(arrayOfCardsAfterIndex);
-
-//   for (var i = 0; i < rotatedArray.length; i++) {
-//     var destinationPile = rotatedArray[i];
-//     // console.log(destinationPile);
-//     cardgoestodifferentpile = checkingSystem(
-//       destinationPile,
-//       array,
-//       arrayOfCardsAfterIndex
-//     );
-//     if (cardgoestodifferentpile) {
-//       if (array.length >= 1) {
-//         // console.log("hello");
-//         array[array.length - 1].faceup();
-//       }
-//       updatePiles();
-//       // arrayOfCardsAfterIndex = []
-//       // rotatedArray = []
-//       return cardgoestodifferentpile;
-//     }
-//   }
-//   return cardgoestodifferentpile;
-// }
-
-//************************************************************************************* */
 
 function arraysEqual(a, b) {
   if (a === b) return true;
   if (a == null || b == null) return false;
   if (a.length !== b.length) return false;
-
-  // If you don't care about the order of the elements inside
-  // the array, you should sort both arrays here.
-  // Please note that calling sort on an array will modify that array.
-  // you might want to clone your array first.
 
   for (var i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
@@ -794,7 +774,6 @@ class Card {
     this.facingup = true;
     this.facingdown = false;
     this.image;
-    // console.log(card);
   }
   orientation() {
     if (this.facingup) {
@@ -805,7 +784,6 @@ class Card {
   }
   findcolor(card) {
     var n = card.match(/of_(.*?)\.png/);
-    // console.log(n[1])
     if (
       n[1] == "hearts" ||
       n[1] == "diamonds" ||
