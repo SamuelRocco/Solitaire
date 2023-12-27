@@ -1,7 +1,9 @@
 window.onload = pageload;
+var saveFile = 'savestates.json';
 const cardfiles = [];
 var DECK = [];
 var shuffledDeck;
+var saveStateArray = [];
 var stockpile = [];
 var wastepile = [];
 let foundation = {
@@ -112,6 +114,44 @@ function pageload() {
 function updatePiles() {
   dealCardColumnPiles();
   createFoundation();
+}
+
+function loadState() {
+  console.log("loading state");
+}
+function saveState() {
+  
+  saveStateArray.clear();
+  saveStateArray.push(
+    stockpile,
+    wastepile,
+    foundation.clubs,
+    foundation.hearts,
+    foundation.spades,
+    foundation.diamonds,
+    columns.column1,
+    columns.column2,
+    columns.column3,
+    columns.column4,
+    columns.column5,
+    columns.column6,
+    columns.column7
+  );
+  // console.log(saveStateArray);
+  var jsonString = JSON.stringify(saveStateArray)
+  var jsonObject = JSON.parse(jsonString);
+  console.log(saveStateArray);
+  console.log(jsonObject);
+
+  
+
+}
+function newGame() {
+  var confirmed = confirm('Are you sure you want to start a new game?');
+  if (confirmed) {
+    // Refresh the page if the user confirms
+    location.reload(); // this might be changed idk
+  }
 }
 
 function dealCards() {
@@ -706,7 +746,7 @@ function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
           nameOfDestinationPile)
     ) {
       // add in the color properties and other problems
-      console.log(cardsBeingMoved);
+      // console.log(cardsBeingMoved);
       foundation[nameOfDestinationPile].push(...cardsBeingMoved);
       cardsBeingMoved.forEach((card) => {
         let index = originPile.indexOf(card);
@@ -745,6 +785,7 @@ function checkifcardgoesondifferentpile(array, i) {
       updatePiles();
       // arrayOfCardsAfterIndex = []
       // rotatedArray = []
+      saveState();
       return cardGoesToDifferentPile;
     }
   }
