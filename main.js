@@ -1,7 +1,7 @@
 window.onload = pageload;
-var saveFile = 'savestates.json';
 const cardfiles = [];
 var DECK = [];
+var compressedJSON;
 var shuffledDeck;
 var saveStateArray = [];
 var stockpile = [];
@@ -101,6 +101,8 @@ function pageload() {
 
   dealCards();
   createStockAndWaste();
+  saveState();
+  localStorage.clear();
   // console.log(columns.column1);
   // console.log(columns.column2);
   // console.log(columns.column3);
@@ -116,12 +118,29 @@ function updatePiles() {
   createFoundation();
 }
 
+
+
+
+//******************************************/
 function loadState() {
+  const storedData = localStorage.getItem('myData');
   console.log("loading state");
+  var decompressedJSON = pako.inflate(compressedJSON, { to: 'string' })
+  var numberOfNewlines = (decompressedJSON.toString().split("$"));
+  console.log(numberOfNewlines);
+  console.log(JSON.parse(numberOfNewlines));
+
+  // console.log(storedData);
+  // console.log(storedData.length/(1024) + " Kb");
+  // console.log(storedData.length/(1024*1024) + " Mb");
+  // console.log(decompressedJSON.length/(1024) + " Kb");
+  // console.log(decompressedJSON.length/(1024*1024) + " Mb");
+
 }
+
+
 function saveState() {
   
-  saveStateArray.clear();
   saveStateArray.push(
     stockpile,
     wastepile,
@@ -137,15 +156,33 @@ function saveState() {
     columns.column6,
     columns.column7
   );
+  // saveStateArray.clear();
   // console.log(saveStateArray);
-  var jsonString = JSON.stringify(saveStateArray)
-  var jsonObject = JSON.parse(jsonString);
-  console.log(saveStateArray);
-  console.log(jsonObject);
+  var jsonData = JSON.stringify(saveStateArray)
+  jsonData = "$" + jsonData;
+  compressedJSON = pako.deflate(jsonData, { to: 'string' });
+  // console.log(compressedJSON);
+  // var jsonObject = JSON.parse(jsonString);
+  // console.log(saveStateArray);
+  // console.log(jsonObject);
+  updateData();
 
+  function updateData() {
+    // Your JSON data as a string
+    let userData = localStorage.getItem('myData');
+    userData += compressedJSON;
+    // Save data to localStorage with a specific key
+    localStorage.setItem('myData', userData);
+    // console.log('Data has been updated in localStorage');
+  }
   
 
 }
+//******************************************/
+
+
+
+
 function newGame() {
   var confirmed = confirm('Are you sure you want to start a new game?');
   if (confirmed) {
@@ -738,7 +775,7 @@ function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
       (cardsBeingMoved[0].numvalue ==
         parseInt(destinationPile[destinationPile.length - 1]?.numvalue) + 1 &&
         cardsBeingMoved[0].facevalue ==
-          destinationPile[destinationPile.length - 1].facevalue) ||
+          destinationPile[destinationPile.length - 1].facevalue) && cardsBeingMoved.length == 1 ||
       (cardsBeingMoved[0].numvalue == 1 &&
         destinationPile.length == 0 &&
         cardsBeingMoved.length == 1 &&
