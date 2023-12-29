@@ -1,7 +1,7 @@
 window.onload = pageload;
 const cardfiles = [];
 var DECK = [];
-var compressedJSON;
+var count = 0;
 var shuffledDeck;
 var saveStateArray = [];
 var stockpile = [];
@@ -101,8 +101,9 @@ function pageload() {
 
   dealCards();
   createStockAndWaste();
-  saveState();
   localStorage.clear();
+  saveState(0);
+  // localStorage.getItem("myData").slice(4);
   // console.log(columns.column1);
   // console.log(columns.column2);
   // console.log(columns.column3);
@@ -118,30 +119,27 @@ function updatePiles() {
   createFoundation();
 }
 
-
-
-
 //******************************************/
 function loadState() {
-  const storedData = localStorage.getItem('myData');
-  console.log("loading state");
-  var decompressedJSON = pako.inflate(compressedJSON, { to: 'string' })
-  var numberOfNewlines = (decompressedJSON.toString().split("$"));
-  console.log(numberOfNewlines);
-  console.log(JSON.parse(numberOfNewlines));
-
+  var storedData = localStorage.getItem("myData");
+  // console.log("loading state");
+  // var decompressedJSON = pako.inflate(storedData, { to: "string" });
   // console.log(storedData);
-  // console.log(storedData.length/(1024) + " Kb");
-  // console.log(storedData.length/(1024*1024) + " Mb");
-  // console.log(decompressedJSON.length/(1024) + " Kb");
-  // console.log(decompressedJSON.length/(1024*1024) + " Mb");
+  var arrayOfLines = storedData.split("\n");
+  console.log(arrayOfLines);
+  if (arrayOfLines.length > 1) {
+    var parsedJSON = JSON.parse(arrayOfLines[arrayOfLines.length - 2]);
+    //start work here 12/28/2023
+  }
 
+  // parsedJSON.splice(0,13);
+  console.log(parsedJSON);
+  // console.log(parsedJSON[13]);
 }
 
-
-function saveState() {
-  
+function saveState(num) {
   saveStateArray.push(
+    //all the arrays pushed into one big array
     stockpile,
     wastepile,
     foundation.clubs,
@@ -156,35 +154,38 @@ function saveState() {
     columns.column6,
     columns.column7
   );
-  // saveStateArray.clear();
-  // console.log(saveStateArray);
-  var jsonData = JSON.stringify(saveStateArray)
-  jsonData = "$" + jsonData;
-  compressedJSON = pako.deflate(jsonData, { to: 'string' });
-  // console.log(compressedJSON);
-  // var jsonObject = JSON.parse(jsonString);
-  // console.log(saveStateArray);
-  // console.log(jsonObject);
-  updateData();
+  var jsonData = JSON.stringify(saveStateArray); // the big array being turned into JSON
+  updateData(); // calling updateData method
 
   function updateData() {
-    // Your JSON data as a string
-    let userData = localStorage.getItem('myData');
-    userData += compressedJSON;
-    // Save data to localStorage with a specific key
-    localStorage.setItem('myData', userData);
-    // console.log('Data has been updated in localStorage');
-  }
-  
+    var userData = localStorage.getItem("myData"); // gets the info from the localstorage
 
+    if (num == 0) {
+      userData = jsonData;
+      count++;
+    } else {
+      userData += "\n" + jsonData; // concatinates the json of big array with the already existing json
+      count++;
+    }
+    if (count > 10) {
+      var index = userData.indexOf("\n");
+      // console.log(userData);
+
+      // Extract the substring after the first newline character
+      userData = userData.substring(index + 1); // or textWithNewlines.slice(index + 1);
+
+      // console.log(newText);
+      count--;
+    }
+    console.log(count);
+    localStorage.setItem("myData", userData); // puts this all back in localStorage
+  }
+  saveStateArray = []; // clears the saveStateArray for next round
 }
 //******************************************/
 
-
-
-
 function newGame() {
-  var confirmed = confirm('Are you sure you want to start a new game?');
+  var confirmed = confirm("Are you sure you want to start a new game?");
   if (confirmed) {
     // Refresh the page if the user confirms
     location.reload(); // this might be changed idk
@@ -340,6 +341,7 @@ function createStockAndWaste() {
     waste[0].textContent = "";
     var stock = document.getElementsByClassName("stock");
     stock[0].textContent = "";
+    saveState(1);
     refreshstockpile();
     refreshwastepile();
   }
@@ -352,6 +354,7 @@ function createStockAndWaste() {
     waste[0].textContent = "";
     var stock = document.getElementsByClassName("stock");
     stock[0].textContent = "";
+    saveState(1);
     refreshstockpile();
     refreshwastepile();
   }
@@ -775,7 +778,8 @@ function checkingSystem(destinationPile, originPile, cardsBeingMoved) {
       (cardsBeingMoved[0].numvalue ==
         parseInt(destinationPile[destinationPile.length - 1]?.numvalue) + 1 &&
         cardsBeingMoved[0].facevalue ==
-          destinationPile[destinationPile.length - 1].facevalue) && cardsBeingMoved.length == 1 ||
+          destinationPile[destinationPile.length - 1].facevalue &&
+        cardsBeingMoved.length == 1) ||
       (cardsBeingMoved[0].numvalue == 1 &&
         destinationPile.length == 0 &&
         cardsBeingMoved.length == 1 &&
@@ -822,7 +826,7 @@ function checkifcardgoesondifferentpile(array, i) {
       updatePiles();
       // arrayOfCardsAfterIndex = []
       // rotatedArray = []
-      saveState();
+      saveState(1);
       return cardGoesToDifferentPile;
     }
   }
