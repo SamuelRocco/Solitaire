@@ -102,7 +102,7 @@ function pageload() {
   dealCards();
   createStockAndWaste();
   localStorage.clear();
-  saveState(0);
+  saveState();
   // localStorage.getItem("myData").slice(4);
   // console.log(columns.column1);
   // console.log(columns.column2);
@@ -121,23 +121,64 @@ function updatePiles() {
 
 //******************************************/
 function loadState() {
-  var storedData = localStorage.getItem("myData");
-  // console.log("loading state");
-  // var decompressedJSON = pako.inflate(storedData, { to: "string" });
-  // console.log(storedData);
-  var arrayOfLines = storedData.split("\n");
-  console.log(arrayOfLines);
-  if (arrayOfLines.length > 1) {
-    var parsedJSON = JSON.parse(arrayOfLines[arrayOfLines.length - 2]);
-    //start work here 12/28/2023
-  }
+  var finalState = [];
+  if (count > 1) {
+    var storedData = localStorage.getItem((count-2).toString());
+    var decompressedData = LZString.decompress(storedData);
+    var undoState = JSON.parse(decompressedData)
 
-  // parsedJSON.splice(0,13);
-  console.log(parsedJSON);
-  // console.log(parsedJSON[13]);
+    for (var i = 0; i < undoState.length; i++) {
+      finalState[i] = [];
+      for (var j = 0; j < undoState[i].length; j++) {
+        finalState[i].push(new Card(undoState[i][j].filename));
+        if (undoState[i][j].facingdown) {
+          finalState[i][j].facedown();
+        } else if (undoState[i][j].facingup) {
+          finalState[i][j].faceup();
+        }
+      }
+    }
+
+    stockpile.clear();
+    wastepile.clear();
+    foundation.clubs.clear();
+    foundation.hearts.clear();
+    foundation.spades.clear();
+    foundation.diamonds.clear();
+    columns.column1.clear();
+    columns.column2.clear();
+    columns.column3.clear();
+    columns.column4.clear();
+    columns.column5.clear();
+    columns.column6.clear();
+    columns.column7.clear();
+    updatePiles();
+
+    stockpile = finalState[0];
+    wastepile = finalState[1];
+    foundation.clubs = finalState[2];
+    foundation.hearts = finalState[3];
+    foundation.spades = finalState[4];
+    foundation.diamonds = finalState[5];
+    columns.column1 = finalState[6];
+    columns.column2 = finalState[7];
+    columns.column3 = finalState[8];
+    columns.column4 = finalState[9];
+    columns.column5 = finalState[10];
+    columns.column6 = finalState[11];
+    columns.column7 = finalState[12];
+    console.log(finalState);
+
+    updatePiles();
+
+    count--;
+  } else {
+    console.log("doesnt work");
+  }
 }
 
-function saveState(num) {
+function saveState(){
+  saveStateArray = [];
   saveStateArray.push(
     //all the arrays pushed into one big array
     stockpile,
@@ -155,32 +196,9 @@ function saveState(num) {
     columns.column7
   );
   var jsonData = JSON.stringify(saveStateArray); // the big array being turned into JSON
-  updateData(); // calling updateData method
-
-  function updateData() {
-    var userData = localStorage.getItem("myData"); // gets the info from the localstorage
-
-    if (num == 0) {
-      userData = jsonData;
-      count++;
-    } else {
-      userData += "\n" + jsonData; // concatinates the json of big array with the already existing json
-      count++;
-    }
-    if (count > 10) {
-      var index = userData.indexOf("\n");
-      // console.log(userData);
-
-      // Extract the substring after the first newline character
-      userData = userData.substring(index + 1); // or textWithNewlines.slice(index + 1);
-
-      // console.log(newText);
-      count--;
-    }
-    console.log(count);
-    localStorage.setItem("myData", userData); // puts this all back in localStorage
-  }
-  saveStateArray = []; // clears the saveStateArray for next round
+  var compressedData = LZString.compress(jsonData);
+  localStorage.setItem(count.toString(), compressedData);
+  count++;
 }
 //******************************************/
 
@@ -341,7 +359,7 @@ function createStockAndWaste() {
     waste[0].textContent = "";
     var stock = document.getElementsByClassName("stock");
     stock[0].textContent = "";
-    saveState(1);
+    saveState();
     refreshstockpile();
     refreshwastepile();
   }
@@ -354,7 +372,7 @@ function createStockAndWaste() {
     waste[0].textContent = "";
     var stock = document.getElementsByClassName("stock");
     stock[0].textContent = "";
-    saveState(1);
+    saveState();
     refreshstockpile();
     refreshwastepile();
   }
@@ -826,7 +844,7 @@ function checkifcardgoesondifferentpile(array, i) {
       updatePiles();
       // arrayOfCardsAfterIndex = []
       // rotatedArray = []
-      saveState(1);
+      saveState();
       return cardGoesToDifferentPile;
     }
   }
