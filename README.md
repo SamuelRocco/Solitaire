@@ -17,7 +17,7 @@ This is a simple implementation of the classic Solitaire card game using HTML, C
 
 This project is a web-based Solitaire card game. It features a user interface built with HTML and CSS, and the game logic is implemented in JavaScript. The project includes features like moving cards, shuffling the deck, and following the standard rules of Solitaire.
 
-![Solitaire Game](images\screenshots\screenshot.png)
+![Solitaire Game](images/screenshots/screenshot.png)
 
 ## How to Play
 
