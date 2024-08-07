@@ -28,7 +28,7 @@ button {
 }
 .undo,
 .newgame,
-.quit {
+.credits {
   margin: 10%;
   width: max-content;
   display: flex;
