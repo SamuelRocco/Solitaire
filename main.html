@@ -7,6 +7,7 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
     <script
       src="http://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"
       type="text/javascript"
@@ -24,6 +25,17 @@
       <div class="stockwaste">
         <div class="stock"></div>
         <div class="waste"></div>
+        <div class="options">
+          <button class="undo" type="button" onclick=loadState()>
+            Undo
+          </button>
+          <button class="newgame" type="button" onclick=newGame()>
+            New Game
+          </button>
+          <button class="quit" type="button" onclick="alert('beta: Proceeds to Quit')">
+            Quit
+          </button>
+        </div>
       </div>
 
       <div class="playarea">

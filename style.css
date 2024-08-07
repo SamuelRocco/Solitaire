@@ -1,192 +1,229 @@
 body {
-    width: 100%;
-    background-image: url("images/backgrounds/standard_background.jpg");
-    background-size: cover;
-    max-width:100%;
-    min-width: 100%;
+  height: 100%;
+  width: 98%;
+  background-image: url("images/backgrounds/standard_background.jpg");
+  background-size: cover;
+  max-width: 100%;
+  /* min-width: 98%; */
 }
 .wrapper {
-    
 }
+
 button {
-    background-color: transparent;
-    border-color: transparent;
+  background-color: transparent;
+  border-color: transparent;
 }
-button > img{
-    /* height: 200px; */
-    max-width: 150px;
-    min-width: 10px;
-    width: 100%;
-    height:auto;
+.options {
+  padding: .5%;
+  padding-right: 1%;
+  border-radius: 10%;
+  border: black;
+  border-width: 3px;
+  border-style: inset;
+  margin: 1%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  /* width: 100%; */
+}
+.undo,
+.newgame,
+.quit {
+  margin: 10%;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  background: #6e6d70;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1),
+    inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5),
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+  color: #dfdedf;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+button > img {
+  /* height: 200px; */
+  max-width: 150px;
+  min-width: 10px;
+  width: 100%;
+  height: auto;
 }
 .stockwaste {
-    float: left;
-    margin: auto;
-    margin-top: 1%;
-    margin-right: 2%;
+  float: left;
+  margin: auto;
+  margin-top: 1%;
+  margin-right: 2%;
 }
 .playarea {
-    float: left;
-    width: 75%;
-    display:flex;
-    justify-content: space-between;
+  float: left;
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
 }
-.playarea > div{
-    flex-basis: 20%;
-    padding: 10px;
+.playarea > div {
+  flex-basis: 20%;
+  padding: 10px;
 }
-.foundation{
-    float: left;
-    margin: auto;
-    margin-top: 1%;
-    margin-left: 2%;
+.foundation {
+  float: left;
+  margin: auto;
+  margin-top: 1%;
+  margin-left: 2%;
 }
-.empty1, .empty2, .empty3, .empty4 {
-    max-width: 150px;
-    min-width: 10px;
-    width: 100%;
-    position: absolute;
-    margin: .5%;
-    max-width: 150px;
-    min-width: 10px;
-    width: 100%;
-    z-index: 0;
-    background-color: rgba(256, 256, 256, .15);
+.empty1,
+.empty2,
+.empty3,
+.empty4 {
+  max-width: 150px;
+  min-width: 10px;
+  width: 100%;
+  position: absolute;
+  margin: 0.5%;
+  max-width: 150px;
+  min-width: 10px;
+  width: 100%;
+  z-index: 0;
+  background-color: rgba(256, 256, 256, 0.15);
 }
 .empty2 {
-    top: 255px;
+  top: 255px;
 }
 .empty3 {
-    top: 482px;
+  top: 482px;
 }
 .empty4 {
-    top: 710px;
+  top: 710px;
 }
 .clubscard {
-    position: absolute;
-    max-width: 190px;
-    min-width: 10px;
-    width: 100%;
-    z-index: 1;
-    top: 43px;
+  position: absolute;
+  max-width: 190px;
+  min-width: 10px;
+  width: 100%;
+  z-index: 1;
+  top: 43px;
 }
 .heartscard {
-    position: absolute;
-    max-width: 190px;
-    min-width: 10px;
-    width: 100%;
-    z-index: 1;
-    top: 270px;
+  position: absolute;
+  max-width: 190px;
+  min-width: 10px;
+  width: 100%;
+  z-index: 1;
+  top: 270px;
 }
 .spadescard {
-    position: absolute;
-    max-width: 190px;
-    min-width: 10px;
-    width: 100%;
-    z-index: 1;
-    top: 498px;
+  position: absolute;
+  max-width: 190px;
+  min-width: 10px;
+  width: 100%;
+  z-index: 1;
+  top: 498px;
 }
 .diamondscard {
-    position: absolute;
-    max-width: 190px;
-    min-width: 10px;
-    width: 100%;
-    z-index: 1;
-    top: 727px;
+  position: absolute;
+  max-width: 190px;
+  min-width: 10px;
+  width: 100%;
+  z-index: 1;
+  top: 727px;
 }
-
 
 .r1 {
-    position: absolute;
-    z-index: 1;
+  position: absolute;
+  z-index: 1;
 }
 .r2 {
-    position: absolute;
-    top: 6%;
-    z-index: 2;
+  position: absolute;
+  top: 6%;
+  z-index: 2;
 }
 .r3 {
-    position: absolute;
-    top: 12%;
-    z-index: 3;
+  position: absolute;
+  top: 12%;
+  z-index: 3;
 }
 .r4 {
-    position: absolute;
-    top: 18%;
-    z-index: 4;
+  position: absolute;
+  top: 18%;
+  z-index: 4;
 }
 .r5 {
-    position: absolute;
-    top: 24%;
-    z-index: 5;
+  position: absolute;
+  top: 24%;
+  z-index: 5;
 }
 .r6 {
-    position: absolute;
-    top: 30%;
-    z-index: 6;
+  position: absolute;
+  top: 30%;
+  z-index: 6;
 }
 .r7 {
-    position: absolute;
-    top: 36%;
-    z-index: 7;
+  position: absolute;
+  top: 36%;
+  z-index: 7;
 }
 .r8 {
-    position: absolute;
-    top: 42%;
-    z-index: 8;
+  position: absolute;
+  top: 42%;
+  z-index: 8;
 }
 .r9 {
-    position: absolute;
-    top: 48%;
-    z-index: 9;
+  position: absolute;
+  top: 48%;
+  z-index: 9;
 }
 .r10 {
-    position: absolute;
-    top: 54%;
-    z-index: 10;
+  position: absolute;
+  top: 54%;
+  z-index: 10;
 }
 .r11 {
-    position: absolute;
-    top: 60%;
-    z-index: 11;
+  position: absolute;
+  top: 60%;
+  z-index: 11;
 }
 .r12 {
-    position: absolute;
-    top: 66%;
-    z-index: 12;
+  position: absolute;
+  top: 66%;
+  z-index: 12;
 }
 .r13 {
-    position: absolute;
-    top: 72%;
-    z-index: 13;
+  position: absolute;
+  top: 72%;
+  z-index: 13;
 }
 .r14 {
-    position: absolute;
-    top: 78%;
-    z-index: 14;
+  position: absolute;
+  top: 78%;
+  z-index: 14;
 }
 .r15 {
-    position: absolute;
-    top: 84%;
-    z-index: 15;
+  position: absolute;
+  top: 84%;
+  z-index: 15;
 }
 .r16 {
-    position: absolute;
-    top: 90%;
-    z-index: 16;
+  position: absolute;
+  top: 90%;
+  z-index: 16;
 }
 .r17 {
-    position: absolute;
-    top: 96%;
-    z-index: 17;
+  position: absolute;
+  top: 96%;
+  z-index: 17;
 }
 .r18 {
-    position: absolute;
-    top: 102%;
-    z-index: 18;
+  position: absolute;
+  top: 102%;
+  z-index: 18;
 }
 .r19 {
-    position: absolute;
-    top: 108%;
-    z-index: 19;
+  position: absolute;
+  top: 108%;
+  z-index: 19;
 }
