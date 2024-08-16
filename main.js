@@ -678,17 +678,13 @@ function dealCardColumnPiles() {
 }
 
 function createFoundation() {
-  //foundation.clubs
-  if (foundation.clubs.length != 0) {
-    var club = document.getElementsByClassName("clubs");
-    var clubspilebutton = document.createElement("button");
-    clubspilebutton.className += "clubscard";
-    var clubsimage = foundation.clubs[foundation.clubs.length - 1].image;
-    // var clubsimage = "images/card_background/cardBackground.png";
-    var clubsbuttonimage = document.createElement("img");
-    clubsbuttonimage.src = clubsimage;
-    clubspilebutton.appendChild(clubsbuttonimage);
-    club[0].appendChild(clubspilebutton);
+
+  if (foundation.clubs.length > 0) {
+    var club = document.getElementsByClassName("empty1")[0];
+    var clubspilebutton = document.getElementsByClassName("clubsbutton")[0];
+    var clubspileimage = foundation.clubs[foundation.clubs.length-1].image;
+    var empty1img = document.getElementsByClassName("empty1")[0]
+    empty1img.src = clubspileimage
 
     clubspilebutton.addEventListener(
       "click",
@@ -704,18 +700,13 @@ function createFoundation() {
       false
     );
   }
-
-  //foundation.hearts
-  if (foundation.hearts.length != 0) {
-    var heart = document.getElementsByClassName("hearts");
-    var heartspilebutton = document.createElement("button");
-    heartspilebutton.className += "heartscard";
-    var heartsimage = foundation.hearts[foundation.hearts.length - 1].image;
-    // var heartsimage = "images/card_background/cardBackground.png";
-    var heartsbuttonimage = document.createElement("img");
-    heartsbuttonimage.src = heartsimage;
-    heartspilebutton.appendChild(heartsbuttonimage);
-    heart[0].appendChild(heartspilebutton);
+  
+  if (foundation.hearts.length > 0) {
+    var heart = document.getElementsByClassName("empty2")[0];
+    var heartspilebutton = document.getElementsByClassName("heartsbutton")[0];
+    var heartspileimage = foundation.hearts[foundation.hearts.length-1].image;
+    var empty2img = document.getElementsByClassName("empty2")[0]
+    empty2img.src = heartspileimage
 
     heartspilebutton.addEventListener(
       "click",
@@ -725,24 +716,19 @@ function createFoundation() {
           heart[0].textContent = "";
           // createFoundation();
           updatePiles();
-          // console.log(foundation.hearts);
+          // console.log(foundation.clubs);
         }
       },
       false
     );
   }
 
-  //foundation.spades
-  if (foundation.spades.length != 0) {
-    var spade = document.getElementsByClassName("spades");
-    var spadespilebutton = document.createElement("button");
-    spadespilebutton.className += "spadescard";
-    var spadesimage = foundation.spades[foundation.spades.length - 1].image;
-    // var spadesimage = "images/card_background/cardBackground.png";
-    var spadesbuttonimage = document.createElement("img");
-    spadesbuttonimage.src = spadesimage;
-    spadespilebutton.appendChild(spadesbuttonimage);
-    spade[0].appendChild(spadespilebutton);
+  if (foundation.spades.length > 0) {
+    var spade = document.getElementsByClassName("empty1")[0];
+    var spadespilebutton = document.getElementsByClassName("spadesbutton")[0];
+    var spadespileimage = foundation.spades[foundation.spades.length-1].image;
+    var empty3img = document.getElementsByClassName("empty3")[0]
+    empty3img.src = spadespileimage
 
     spadespilebutton.addEventListener(
       "click",
@@ -752,25 +738,19 @@ function createFoundation() {
           spade[0].textContent = "";
           // createFoundation();
           updatePiles();
-          // console.log(foundation.spades);
+          // console.log(foundation.clubs);
         }
       },
       false
     );
   }
 
-  //foundation.diamonds
-  if (foundation.diamonds.length != 0) {
-    var diamond = document.getElementsByClassName("diamonds");
-    var diamondspilebutton = document.createElement("button");
-    diamondspilebutton.className += "diamondscard";
-    var diamondsimage =
-      foundation.diamonds[foundation.diamonds.length - 1].image;
-    // var diamondsimage = "images/card_background/cardBackground.png";
-    var diamondsbuttonimage = document.createElement("img");
-    diamondsbuttonimage.src = diamondsimage;
-    diamondspilebutton.appendChild(diamondsbuttonimage);
-    diamond[0].appendChild(diamondspilebutton);
+  if (foundation.diamonds.length > 0) {
+    var diamond = document.getElementsByClassName("empty4")[0];
+    var diamondspilebutton = document.getElementsByClassName("diamondsbutton")[0];
+    var diamondspileimage = foundation.diamonds[foundation.diamonds.length-1].image;
+    var empty4img = document.getElementsByClassName("empty4")[0]
+    empty4img.src = diamondspileimage
 
     diamondspilebutton.addEventListener(
       "click",
@@ -780,7 +760,7 @@ function createFoundation() {
           diamond[0].textContent = "";
           // createFoundation();
           updatePiles();
-          // console.log(foundation.diamonds);
+          // console.log(foundation.clubs);
         }
       },
       false

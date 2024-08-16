@@ -3,10 +3,8 @@ body {
   width: 98%;
   background-image: url("images/backgrounds/standard_background.jpg");
   background-size: cover;
-  max-width: 100%;
+  /* max-width: 100%; */
   /* min-width: 98%; */
-}
-.wrapper {
 }
 
 button {
@@ -14,6 +12,9 @@ button {
   border-color: transparent;
 }
 .options {
+  /* padding: 1vw; */
+  /* width: fit-content; */
+  /* height: auto; */
   padding: .5%;
   padding-right: 1%;
   border-radius: 10%;
@@ -26,6 +27,7 @@ button {
   left: 0;
   /* width: 100%; */
 }
+
 .undo,
 .newgame,
 .credits {
@@ -49,16 +51,17 @@ button {
 }
 button > img {
   /* height: 200px; */
-  max-width: 150px;
-  min-width: 10px;
+  max-width: 7vw;
+  /* min-width: 5vw; */
   width: 100%;
   height: auto;
 }
 .stockwaste {
   float: left;
+  /* width: 100%; */
   margin: auto;
   margin-top: 1%;
-  margin-right: 2%;
+  margin-right: 1vw;
 }
 .playarea {
   float: left;
@@ -69,6 +72,7 @@ button > img {
 .playarea > div {
   flex-basis: 20%;
   padding: 10px;
+
 }
 .foundation {
   float: left;
@@ -76,22 +80,21 @@ button > img {
   margin-top: 1%;
   margin-left: 2%;
 }
+
+
 .empty1,
 .empty2,
 .empty3,
 .empty4 {
-  max-width: 150px;
-  min-width: 10px;
+  max-width: 7vw;
   width: 100%;
-  position: absolute;
-  margin: 0.5%;
-  max-width: 150px;
-  min-width: 10px;
+  position: relative;
+  /* margin: 0.5%; */
   width: 100%;
   z-index: 0;
   background-color: rgba(256, 256, 256, 0.15);
 }
-.empty2 {
+/* .empty2 {
   top: 255px;
 }
 .empty3 {
@@ -99,14 +102,14 @@ button > img {
 }
 .empty4 {
   top: 710px;
-}
+} */
 .clubscard {
   position: absolute;
   max-width: 190px;
   min-width: 10px;
   width: 100%;
   z-index: 1;
-  top: 43px;
+  top: 2.75%;
 }
 .heartscard {
   position: absolute;
