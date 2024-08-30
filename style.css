@@ -90,7 +90,6 @@ button > img {
   width: 100%;
   position: relative;
   /* margin: 0.5%; */
-  width: 100%;
   z-index: 0;
   background-color: rgba(256, 256, 256, 0.15);
 }

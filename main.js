@@ -122,10 +122,10 @@ function updatePiles() {
 
   document.getElementsByClassName("stock")[0].innerHTML="";
   document.getElementsByClassName("waste")[0].innerHTML="";
-  document.getElementsByClassName("clubs")[0].innerHTML="";
-  document.getElementsByClassName("hearts")[0].innerHTML="";
-  document.getElementsByClassName("spades")[0].innerHTML="";
-  document.getElementsByClassName("diamonds")[0].innerHTML="";
+  document.getElementsByClassName("empty1")[0].src = "images/card_background/clubsBlank.png";
+  document.getElementsByClassName("empty2")[0].src = "images/card_background/heartsBlank.png";
+  document.getElementsByClassName("empty3")[0].src = "images/card_background/spadesBlank.png";
+  document.getElementsByClassName("empty4")[0].src = "images/card_background/diamondsBlank.png";
   document.getElementsByClassName("column1")[0].innerHTML="";
   document.getElementsByClassName("column2")[0].innerHTML="";
   document.getElementsByClassName("column3")[0].innerHTML="";
